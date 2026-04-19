@@ -1,0 +1,9 @@
+# Cloudflare Pages _headers file (copied to _cf_staging/_headers at stage time).
+# Syntax: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Scope COOP/COEP to /explorer/* only. Site-wide would break the playground,
+# which pulls Pyodide from a CDN that doesn't set CORP headers.
+
+/explorer/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

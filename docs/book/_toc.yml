@@ -54,5 +54,6 @@ parts:
       - file: devel_docs/bindings_debug
       - file: devel_docs/pypi_deploy
       - file: devel_docs/Readme_pyodide_bundle
+      - file: devel_docs/cloudflare_deploy
       - file: devel_docs/build_opencv_immvision
 

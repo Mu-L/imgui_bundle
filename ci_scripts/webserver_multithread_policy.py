@@ -16,10 +16,14 @@ import os
 import argparse
 
 
+COI_PREFIX = ''  # set by main(); empty string = apply site-wide
+
+
 class CORSRequestHandler (SimpleHTTPRequestHandler):
     def end_headers (self):
-        self.send_header('Cross-Origin-Opener-Policy', 'same-origin')
-        self.send_header('Cross-Origin-Embedder-Policy', 'require-corp')
+        if not COI_PREFIX or self.path.startswith(COI_PREFIX):
+            self.send_header('Cross-Origin-Opener-Policy', 'same-origin')
+            self.send_header('Cross-Origin-Embedder-Policy', 'require-corp')
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_GET(self):
@@ -49,8 +53,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-p', '--port', default=8000, type=int)
     parser.add_argument('-r', '--root', default='', type=str)
+    parser.add_argument('--coi-prefix', default='', type=str,
+                        help='Only set COOP/COEP on URLs under this prefix (e.g. /explorer/). Empty = site-wide.')
     args = parser.parse_args()
     if args.root:
         os.chdir(args.root)
+    globals()['COI_PREFIX'] = args.coi_prefix
     print(f"http://localhost:{args.port}/")
     test(CORSRequestHandler, HTTPServer, port=args.port)

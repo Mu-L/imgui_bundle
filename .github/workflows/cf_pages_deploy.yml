@@ -1,0 +1,65 @@
+name: Cloudflare Pages deploy
+
+on:
+  workflow_dispatch:
+#  pull_request:
+#  release:
+#    types:
+#      - published
+#  push:
+#    branches:
+#      - master
+#      - main
+
+# Refuse concurrent runs
+concurrency:
+  group: cf-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  build_ibex:
+    name: Build Bundle Explorer Wasm binaries
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      # install just
+      - uses: extractions/setup-just@v4
+
+      # install emscripten (and cache it)
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@v15
+        with:
+          # Make sure to set a version number!
+          version: 5.0.4
+          # This is the name of the cache folder.
+          # The cache folder will be placed in the build directory,
+          #  so make sure it doesn't conflict with anything!
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: Verify emscripten toolchain
+        run: emcc -v
+
+      - name: Setup interactive tmate session
+        uses: mxschmitt/action-tmate@v3
+
+      - name: Build Pyodide wheel
+        run: |
+          just pyodide_setup_local_build
+          just pyodide_build
+
+      - name: Build Bundle Binaries
+        run: just ibex_build
+
+      - name: Stage site
+        run: just cf_stage_all
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy pyodide_projects/_cf_staging --project-name=imgui-bundle

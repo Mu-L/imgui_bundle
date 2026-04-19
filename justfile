@@ -71,7 +71,7 @@ libs_bindings_all:
 ibex_build:
     mkdir -p build_ibex_ems && \
     cd build_ibex_ems && \
-    source ~/emsdk/emsdk_env.sh && \
+    if [ -f ~/emsdk/emsdk_env.sh ]; then source ~/emsdk/emsdk_env.sh; fi && \
     emcmake cmake .. -DCMAKE_BUILD_TYPE=Release -DIMMVISION_FETCH_OPENCV=ON && \
     make -j
 
@@ -108,7 +108,7 @@ ibex_serve:
 imex_ems_build:
     mkdir -p build_imex_ems && \
     cd build_imex_ems && \
-    source ~/emsdk/emsdk_env.sh && \
+    if [ -f ~/emsdk/emsdk_env.sh ]; then source ~/emsdk/emsdk_env.sh; fi && \
     emcmake cmake .. -DCMAKE_BUILD_TYPE=Release \
                      -DIMGUI_BUNDLE_BUILD_IMGUI_EXPLORER_APP=ON -DIMGUI_BUNDLE_WITH_IMANIM=OFF -DIMGUI_BUNDLE_BUILD_DEMOS=OFF -DIMGUI_BUNDLE_WITH_IMMVISION=OFF && \
     cmake --build . -j 8
@@ -244,6 +244,65 @@ pyodide_deploy_imgui_bundle_online:
     rsync -avz --delete --copy-unsafe-links {{_PYODIDE_DEPLOY_LOCAL_FOLDER}}/ {{_PYODIDE_DEPLOY_REMOTE_HOST}}:{{_PYODIDE_DEPLOY_REMOTE_FOLDER}}/
     echo "Deployed to https://traineq.org/imgui_bundle_online/"
 
+
+# ==============================================================
+# Cloudflare Pages deploy (to https://imgui-bundle.pages.dev/)
+# ==============================================================
+# See docs/book/devel_docs/cloudflare_deploy.md for the full workflow.
+#
+#   imgui-bundle.pages.dev/                      landing page (links)
+#   imgui-bundle.pages.dev/playground_python/    pyodide playground
+#   imgui-bundle.pages.dev/min_pyodide_app/      minimal pyodide sample
+#   imgui-bundle.pages.dev/local_wheels/         shared wheel (referenced as ../local_wheels/)
+#   imgui-bundle.pages.dev/explorer/             ibex
+#
+# Requires: wrangler (`npm i -g wrangler`) and either
+#   - env vars CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID, or
+#   - `wrangler login` / `wrangler whoami` auth
+_CF_STAGING := "pyodide_projects/_cf_staging"
+_CF_PROJECT := "imgui-bundle"
+
+# populates pyodide_projects/_cf_staging which is what will be uploaded to imgui-bundle.pages.dev/
+[group('cloudflare')]
+cf_stage:
+    # 0. Make dir pyodide_projects/_cf_staging (gitignored)
+    mkdir -p {{_CF_STAGING}}
+    # 1. Copy landing page and CF _headers file
+    # ------------------------------------------------------------
+    cp pyodide_projects/cf_landing.html {{_CF_STAGING}}/index.html
+    cp pyodide_projects/cf_headers {{_CF_STAGING}}/_headers
+    # 2. Copy min_pyodide_app
+    # ------------------------------------------------------------
+    rm -rf {{_CF_STAGING}}/min_pyodide_app
+    cd pyodide_projects/projects/min_bundle_pyodide_app && cp -f demo_heart.html demo_heart.source.txt
+    rsync -a pyodide_projects/projects/min_bundle_pyodide_app/ {{_CF_STAGING}}/min_pyodide_app/
+    # 3. Copy python playground
+    # ------------------------------------------------------------
+    # --copy-unsafe-links resolves the examples/ symlink (points outside the tree)
+    rm -rf {{_CF_STAGING}}/playground_python {{_CF_STAGING}}/local_wheels
+    rsync -a --copy-unsafe-links pyodide_projects/projects/imgui_bundle_playground/ {{_CF_STAGING}}/playground_python/
+    rsync -a pyodide_projects/projects/local_wheels/ {{_CF_STAGING}}/local_wheels/
+    # 4. Copy bundle explorer (ibex)
+    # ------------------------------------------------------------
+    rm -rf {{_CF_STAGING}}/explorer
+    rsync -a --exclude='*.gz' build_ibex_ems/bin/ {{_CF_STAGING}}/explorer/
+    cp build_ibex_ems/bin/demo_imgui_bundle.html {{_CF_STAGING}}/explorer/index.html
+
+# Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
+[group('cloudflare')]
+cf_deploy:
+    wrangler pages deploy {{_CF_STAGING}} --project-name={{_CF_PROJECT}} --commit-dirty=true
+    echo "Deployed to https://imgui-bundle.pages.dev/"
+
+# Wipe staging
+[group('cloudflare')]
+cf_clean:
+    rm -rf {{_CF_STAGING}}
+
+# Serves locally the current staging dir (add coi headers for the explorer)
+[group('cloudflare')]
+cf_serve_local:
+    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/
 
 # ==============================================================
 # Tests

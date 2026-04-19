@@ -67,4 +67,5 @@ Terms used throughout the developer docs:
 - [Debug Native C++](bindings_debug.md) – debugging C++ code from Python
 - [PyPI Deployment](pypi_deploy.md) – releasing to PyPI
 - [Pyodide Build Guide](Readme_pyodide_bundle.md) – building for Python-in-the-browser
+- [Cloudflare Pages Deploy](cloudflare_deploy.md) – publishing the playground + explorer to imgui-bundle.pages.dev
 - [OpenCV Build Guide](build_opencv_immvision.md) – building with OpenCV / ImmVision
