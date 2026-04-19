@@ -1,5 +1,8 @@
 # ImGui Bundle development utilities
 
+# Use bash for all recipes (default on Linux is dash via /bin/sh, which lacks `source`).
+set shell := ["bash", "-cu"]
+
 _pycmd := "PYTHONPATH=external/bindings_generation python -c"
 
 # List all the targets in the justfile
