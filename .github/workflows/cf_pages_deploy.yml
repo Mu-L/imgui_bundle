@@ -26,6 +26,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Test env
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "Account: $CLOUDFLARE_ACCOUNT_ID"
+
+
       # install just
       - uses: extractions/setup-just@v4
 
@@ -48,23 +56,28 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Setup interactive tmate session
-        uses: mxschmitt/action-tmate@v3
+#      - name: Setup interactive tmate session
+#        uses: mxschmitt/action-tmate@v3
+
+      - name: Prepare Pyodide build environment
+        run: |
+          just pyodide_setup_local_build
 
       - name: Build Pyodide wheel
         run: |
-          just pyodide_setup_local_build
           just pyodide_build
 
-      - name: Build Bundle Binaries
+      - name: Build Bundle Explorer Binaries
         run: just ibex_build
 
       - name: Stage site
-        run: just cf_stage_all
+        run: just cf_stage
+
+      - name: Install wrangler
+        run: npm install -g wrangler
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy pyodide_projects/_cf_staging --project-name=imgui-bundle
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: just cf_deploy
