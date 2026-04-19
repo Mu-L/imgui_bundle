@@ -290,6 +290,12 @@ cf_stage:
     rm -rf {{_CF_STAGING}}/explorer
     rsync -a --exclude='*.gz' build_ibex_ems/bin/ {{_CF_STAGING}}/explorer/
     cp build_ibex_ems/bin/demo_imgui_bundle.html {{_CF_STAGING}}/explorer/index.html
+    # Pre-compress .data files: CF doesn't auto-gzip application/octet-stream.
+    # The _headers rule /explorer/*.data sets Content-Encoding: gzip so the
+    # browser decompresses transparently. Saves ~50% transfer on each demo.
+    for f in {{_CF_STAGING}}/explorer/*.data; do \
+        gzip -9 -c "$f" > "$f.tmp" && mv "$f.tmp" "$f"; \
+    done
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
 [group('cloudflare')]
@@ -302,10 +308,11 @@ cf_deploy:
 cf_clean:
     rm -rf {{_CF_STAGING}}
 
-# Serves locally the current staging dir (add coi headers for the explorer)
+# Serves locally the current staging dir (add coi headers for the explorer,
+# and Content-Encoding: gzip for the pre-gzipped .data files — mirrors the CF _headers rules).
 [group('cloudflare')]
 cf_serve_local:
-    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/
+    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/ --gzip-suffix=.data
 
 # ==============================================================
 # Tests

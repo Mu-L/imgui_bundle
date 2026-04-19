@@ -17,6 +17,7 @@ import argparse
 
 
 COI_PREFIX = ''  # set by main(); empty string = apply site-wide
+GZIP_SUFFIX = ''  # set by main(); e.g. '.data' to serve *.data with Content-Encoding: gzip
 
 
 class CORSRequestHandler (SimpleHTTPRequestHandler):
@@ -24,6 +25,8 @@ class CORSRequestHandler (SimpleHTTPRequestHandler):
         if not COI_PREFIX or self.path.startswith(COI_PREFIX):
             self.send_header('Cross-Origin-Opener-Policy', 'same-origin')
             self.send_header('Cross-Origin-Embedder-Policy', 'require-corp')
+        if GZIP_SUFFIX and self.path.endswith(GZIP_SUFFIX):
+            self.send_header('Content-Encoding', 'gzip')
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_GET(self):
@@ -55,9 +58,13 @@ if __name__ == '__main__':
     parser.add_argument('-r', '--root', default='', type=str)
     parser.add_argument('--coi-prefix', default='', type=str,
                         help='Only set COOP/COEP on URLs under this prefix (e.g. /explorer/). Empty = site-wide.')
+    parser.add_argument('--gzip-suffix', default='', type=str,
+                        help='Serve files whose URL ends with this suffix with Content-Encoding: gzip. '
+                             'Use when files are already gzipped on disk (e.g. --gzip-suffix=.data).')
     args = parser.parse_args()
     if args.root:
         os.chdir(args.root)
     globals()['COI_PREFIX'] = args.coi_prefix
+    globals()['GZIP_SUFFIX'] = args.gzip_suffix
     print(f"http://localhost:{args.port}/")
     test(CORSRequestHandler, HTTPServer, port=args.port)

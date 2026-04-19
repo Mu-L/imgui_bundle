@@ -7,3 +7,9 @@
 /explorer/*
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
+
+# Emscripten .data bundles are application/octet-stream (not in CF's default
+# compressible types). We pre-gzip them in cf_stage and declare the encoding
+# here so browsers decompress transparently.
+/explorer/*.data
+  Content-Encoding: gzip
