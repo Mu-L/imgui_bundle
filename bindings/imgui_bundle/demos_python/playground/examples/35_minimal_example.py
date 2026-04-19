@@ -24,7 +24,7 @@ class AppState:
     def __init__(self):
         self.editor = ed.TextEditor()
         # Download the minimal HTML example source
-        html_bytes = immapp.download_url_bytes("https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.html")
+        html_bytes = immapp.download_url_bytes("https://raw.githubusercontent.com/pthom/imgui_bundle/refs/heads/main/pyodide_projects/projects/min_bundle_pyodide_app/demo_heart.html")
         if len(html_bytes) > 0:
             self.editor.set_text(html_bytes.decode("utf-8"))
         else:
