@@ -33,7 +33,7 @@ jobs:
       - uses: extractions/setup-just@v4
       # install emscripten (and cache it)
       - name: Setup emsdk
-        uses: emscripten-core/setup-emsdk@v15
+        uses: emscripten-core/setup-emsdk@v16
         with:
           # Make sure to set a version number!
           version: 5.0.4
