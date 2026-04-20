@@ -8,8 +8,12 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
 
-# Emscripten .data bundles are application/octet-stream (not in CF's default
-# compressible types). We pre-gzip them in cf_stage and declare the encoding
-# here so browsers decompress transparently.
+# Emscripten .data bundles are application/octet-stream, which CF does NOT
+# auto-compress. Override the Content-Type to application/wasm (which IS on
+# CF's compressible list) so the edge applies Brotli/gzip automatically.
+# Emscripten loads .data via fetch().arrayBuffer() and ignores Content-Type,
+# so this is behaviorally safe.
+# Note: Content-Encoding is reserved on CF Pages (user rules are silently
+# stripped), which is why we go via Content-Type instead of pre-compressing.
 /explorer/*.data
-  Content-Encoding: gzip
+  Content-Type: application/wasm

@@ -260,7 +260,7 @@ pyodide_deploy_imgui_bundle_online:
 # See docs/book/devel_docs/cloudflare_deploy.md for the full workflow.
 #
 #   imgui-bundle.pages.dev/                      landing page (links)
-#   imgui-bundle.pages.dev/playground_python/    pyodide playground
+#   imgui-bundle.pages.dev/playground/           pyodide playground
 #   imgui-bundle.pages.dev/min_pyodide_app/      minimal pyodide sample
 #   imgui-bundle.pages.dev/local_wheels/         shared wheel (referenced as ../local_wheels/)
 #   imgui-bundle.pages.dev/explorer/             ibex
@@ -291,20 +291,18 @@ cf_stage:
     # 3. Copy python playground
     # ------------------------------------------------------------
     # --copy-unsafe-links resolves the examples/ symlink (points outside the tree)
-    rm -rf {{_CF_STAGING}}/playground_python {{_CF_STAGING}}/local_wheels
-    rsync -a --copy-unsafe-links pyodide_projects/projects/imgui_bundle_playground/ {{_CF_STAGING}}/playground_python/
+    rm -rf {{_CF_STAGING}}/playground {{_CF_STAGING}}/local_wheels
+    rsync -a --copy-unsafe-links pyodide_projects/projects/imgui_bundle_playground/ {{_CF_STAGING}}/playground/
     rsync -a pyodide_projects/projects/local_wheels/ {{_CF_STAGING}}/local_wheels/
     # 4. Copy bundle explorer (ibex)
     # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/explorer
     rsync -a --exclude='*.gz' build_ibex_ems/bin/ {{_CF_STAGING}}/explorer/
     cp build_ibex_ems/bin/demo_imgui_bundle.html {{_CF_STAGING}}/explorer/index.html
-    # Pre-compress .data files: CF doesn't auto-gzip application/octet-stream.
-    # The _headers rule /explorer/*.data sets Content-Encoding: gzip so the
-    # browser decompresses transparently. Saves ~50% transfer on each demo.
-    for f in {{_CF_STAGING}}/explorer/*.data; do \
-        gzip -9 -c "$f" > "$f.tmp" && mv "$f.tmp" "$f"; \
-    done
+    # Note: .data files are served as-is; the _headers rule /explorer/*.data
+    # overrides their Content-Type to application/wasm so CF auto-compresses
+    # them at the edge (application/octet-stream is not in CF's compressible
+    # MIME list, and CF strips user-set Content-Encoding from _headers).
     # 5. Copy jupyter-book documentation to the staging ROOT (its index.html
     #    becomes the site landing page). Run `just doc_build_cf` first.
     # ------------------------------------------------------------
@@ -325,7 +323,7 @@ cf_clean:
 # and Content-Encoding: gzip for the pre-gzipped .data files — mirrors the CF _headers rules).
 [group('cloudflare')]
 cf_serve_local:
-    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/ --gzip-suffix=.data
+    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/
 
 # ==============================================================
 # Tests

@@ -3,14 +3,14 @@
 The project publishes several static subparts to a single Cloudflare Pages project
 named `imgui-bundle`, reachable at <https://imgui-bundle.pages.dev/>:
 
-| Path                          | Contents                                                          |
-|-------------------------------|-------------------------------------------------------------------|
-| `/`                           | Jupyter-book documentation (this book); its `index.html` is the site landing page |
-| `/playground_python/`         | Pyodide playground (Python examples in the browser)               |
-| `/min_pyodide_app/`           | Minimal Pyodide template (single-file demo)                       |
-| `/explorer/`                  | Dear ImGui Bundle Explorer (Emscripten build with OpenCV)         |
-| `/local_wheels/`              | Shared `imgui_bundle-*.whl`, loaded by the pyodide subparts       |
-| `/assets/book.pdf`            | PDF export of the documentation                                   |
+| Path                | Contents                                                          |
+|---------------------|-------------------------------------------------------------------|
+| `/`                 | Jupyter-book documentation (this book); its `index.html` is the site landing page |
+| `/playground/`      | Pyodide playground (Python examples in the browser)               |
+| `/min_pyodide_app/` | Minimal Pyodide template (single-file demo)                       |
+| `/explorer/`        | Dear ImGui Bundle Explorer (Emscripten build with OpenCV)         |
+| `/local_wheels/`    | Shared `imgui_bundle-*.whl`, loaded by the pyodide subparts       |
+| `/assets/book.pdf`  | PDF export of the documentation                                   |
 
 A `_headers` file (`pyodide_projects/cf_headers`) scopes
 `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy` to `/explorer/*`
@@ -103,7 +103,7 @@ Required GitHub Actions secrets: `CLOUDFLARE_API_TOKEN`,
 ## Links on imgui-bundle pages at claoudflare
 
 * [Doc & Root](https://imgui-bundle.pages.dev)
-* [Python Playground](https://imgui-bundle.pages.dev/playground_python)
+* [Python Playground](https://imgui-bundle.pages.dev/playground)
 * [Minimal Pyodide Template](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.html)
 * [Minimal Pyodide Template - Source](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.source.txt)
 * [ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer)
