@@ -49,6 +49,22 @@ int answer()
 
 ---
 
+### Task lists
+
+GitHub-style task lists are rendered as checkbox glyphs:
+
+- [x] Write the plan
+- [x] Implement the feature
+- [ ] Polish documentation
+- [ ] Ship it
+
+```
+- [x] Write the plan
+- [ ] Ship it
+```
+
+---
+
 ### Images
 
 Images can be loaded from local assets or from URLs:
