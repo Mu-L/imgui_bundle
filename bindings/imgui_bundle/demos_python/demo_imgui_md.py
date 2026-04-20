@@ -44,6 +44,41 @@ int answer()
 
 ---
 
+### Collapsible sections
+
+`<details>` / `<summary>` render as collapsing headers. Blank lines
+around the opening and closing tags let the inner content be parsed
+as regular markdown:
+
+<details>
+<summary>Click me to expand</summary>
+
+The content inside is **regular markdown** — lists, code, tables, etc.
+
+- One
+- Two
+- Three
+
+</details>
+
+<details>
+<summary>Another collapsible section</summary>
+
+Hidden until clicked.
+
+</details>
+
+```
+<details>
+<summary>Click me to expand</summary>
+
+The content inside is **regular markdown** — lists, code, tables, etc.
+
+</details>
+```
+
+---
+
 ### Inline HTML spans
 
 Common HTML span tags have built-in rendering:
@@ -54,6 +89,11 @@ Common HTML span tags have built-in rendering:
 - Highlight: the <mark>important part</mark> is in color
 
 For any other tag, set `MarkdownCallbacks.on_html_span` to customize.
+
+```
+H<sub>2</sub>O, x<sup>2</sup>, <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+the <mark>highlight</mark> here
+```
 
 ---
 
@@ -76,6 +116,14 @@ or `[!CAUTION]` are rendered as colored callouts:
 
 > [!CAUTION]
 > Caution: a negative outcome is likely without care.
+
+```
+> [!NOTE]
+> A note provides useful context that a reader should know.
+
+> [!WARNING]
+> A warning about a content risk that needs attention.
+```
 
 ---
 
@@ -204,6 +252,8 @@ $$
 
 
 def demo_gui():
+    # from imgui_bundle import hello_imgui
+    # hello_imgui.apply_theme(hello_imgui.ImGuiTheme_.white_is_white)
     s = example_markdown_string()
     imgui_md.render(s)
     # Note: you may also use:
