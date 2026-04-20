@@ -49,6 +49,28 @@ int answer()
 
 ---
 
+### GitHub-style admonitions
+
+Blockquotes starting with `[!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`
+or `[!CAUTION]` are rendered as colored callouts:
+
+> [!NOTE]
+> A note provides useful context that a reader should know.
+
+> [!TIP]
+> Tips help the reader achieve something faster.
+
+> [!IMPORTANT]
+> Important information users must know to complete their task.
+
+> [!WARNING]
+> A warning about a content risk that needs attention.
+
+> [!CAUTION]
+> Caution: a negative outcome is likely without care.
+
+---
+
 ### Autolinks
 
 Bare URLs, `www.` hosts and email addresses become clickable links
