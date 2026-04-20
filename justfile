@@ -172,10 +172,16 @@ doc_build_static:
     echo "\n  cd docs/book/_build/html && python -m http.server 7005"
     echo "\nOr just run:\n\n  just doc_serve_static\n"
 
-# Build bundle doc in pdf, copy the pdf to the ramdisk
+# Build bundle doc in pdf
 [group('docs')]
 doc_build_pdf:
     cd docs/book && jupyter-book build --pdf
+
+# Build HTML + PDF for Cloudflare deploy (PDF is exposed at /assets/book.pdf)
+[group('docs')]
+doc_build_cf: doc_build_static doc_build_pdf
+    mkdir -p docs/book/_build/html/assets
+    cp docs/book/_build/exports/book.pdf docs/book/_build/html/assets/
 
 
 # ==============================================================
@@ -265,14 +271,17 @@ pyodide_deploy_imgui_bundle_online:
 _CF_STAGING := "pyodide_projects/_cf_staging"
 _CF_PROJECT := "imgui-bundle"
 
+# builds all the elements required by cf_stage (doc, explorer, pyodide wheel, etc)
+[group('cloudflare')]
+cf_stage_prepare: doc_build_cf ibex_build pyodide_setup_local_build pyodide_build
+
 # populates pyodide_projects/_cf_staging which is what will be uploaded to imgui-bundle.pages.dev/
 [group('cloudflare')]
 cf_stage:
     # 0. Make dir pyodide_projects/_cf_staging (gitignored)
     mkdir -p {{_CF_STAGING}}
-    # 1. Copy landing page and CF _headers file
+    # 1. Copy the CF _headers file
     # ------------------------------------------------------------
-    cp pyodide_projects/cf_landing.html {{_CF_STAGING}}/index.html
     cp pyodide_projects/cf_headers {{_CF_STAGING}}/_headers
     # 2. Copy min_pyodide_app
     # ------------------------------------------------------------
@@ -296,6 +305,10 @@ cf_stage:
     for f in {{_CF_STAGING}}/explorer/*.data; do \
         gzip -9 -c "$f" > "$f.tmp" && mv "$f.tmp" "$f"; \
     done
+    # 5. Copy jupyter-book documentation to the staging ROOT (its index.html
+    #    becomes the site landing page). Run `just doc_build_cf` first.
+    # ------------------------------------------------------------
+    rsync -a docs/book/_build/html/ {{_CF_STAGING}}/
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
 [group('cloudflare')]

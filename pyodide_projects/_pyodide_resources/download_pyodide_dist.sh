@@ -16,7 +16,7 @@ EXTRACT_DIR="pyodide_dist"
 if [ -d "$EXTRACT_DIR" ]; then
     echo "✗ Directory '$EXTRACT_DIR' already exists"
     echo "  To re-download: rm -rf $EXTRACT_DIR (or run: just pyodide_deep_clean)"
-    exit 1
+    exit 0
 fi
 
 echo "Downloading Pyodide ${PYODIDE_VERSION}..."
