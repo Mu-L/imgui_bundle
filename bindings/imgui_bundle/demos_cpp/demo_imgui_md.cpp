@@ -49,6 +49,19 @@ int answer()
 
 ---
 
+### Inline HTML spans
+
+Common HTML span tags have built-in rendering:
+
+- Chemistry: H<sub>2</sub>O, CO<sub>2</sub>
+- Math: x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup>
+- Keyboard shortcut: press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>
+- Highlight: the <mark>important part</mark> is in color
+
+For any other tag, set `MarkdownCallbacks::OnHtmlSpan` to customize.
+
+---
+
 ### GitHub-style admonitions
 
 Blockquotes starting with `[!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]`

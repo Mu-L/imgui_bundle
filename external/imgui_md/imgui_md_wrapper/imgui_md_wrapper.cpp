@@ -362,6 +362,36 @@ You may find these files in the imgui_bundle/imgui_bundle_assets/ folder.
             mMarkdownOptions->callbacks.OnHtmlDiv(divClass, openingDiv);
         }
 
+        bool check_html(const char* str, const char* str_end) override
+        {
+            // Give the user callback first shot at the tag; fall through to
+            // the base class so built-ins (<u>, <br>, <hr>, <sub>, <sup>,
+            // <kbd>, <mark>, <img>, <div>) still work if the callback is
+            // unset or returns false.
+            if (mMarkdownOptions->callbacks.OnHtmlSpan)
+            {
+                const size_t sz = (size_t)(str_end - str);
+                if (sz >= 3 && str[0] == '<')
+                {
+                    // Skip past '<' and optional '/'
+                    const char* p = str + 1;
+                    bool opening = true;
+                    if (p < str_end && *p == '/') { opening = false; ++p; }
+                    // Tag name ends at space, '>', or '/'
+                    const char* name_end = p;
+                    while (name_end < str_end && *name_end != ' ' && *name_end != '>' && *name_end != '/' && *name_end != '\t')
+                        ++name_end;
+                    if (name_end > p)
+                    {
+                        std::string tag(p, name_end);
+                        if (mMarkdownOptions->callbacks.OnHtmlSpan(tag, opening))
+                            return true;
+                    }
+                }
+            }
+            return imgui_md::check_html(str, str_end);
+        }
+
         void render_code_block() override
         {
             auto code_without_last_empty_lines = [](const std::string code_)

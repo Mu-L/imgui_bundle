@@ -47,6 +47,7 @@ namespace ImGuiMd
     using VoidFunction = std::function<void(void)>;
     using StringFunction = std::function<void(std::string)>;
     using HtmlDivFunction = std::function<void(const std::string& divClass, bool openingDiv)>;
+    using HtmlSpanFunction = std::function<bool(const std::string& tagName, bool opening)>;
     using MarkdownImageFunction = std::function<std::optional<MarkdownImage>(const std::string&)>;
 
     // Status of a download (used by OnDownloadData callback)
@@ -109,6 +110,21 @@ namespace ImGuiMd
         //            gui_function=gui, with_markdown_options=md_options #, more options here
         //        )
         HtmlDivFunction OnHtmlDiv;
+
+        // OnHtmlSpan: optional callback for inline HTML tags encountered in
+        // markdown text (one call per open/close tag; e.g. "sub", "sup",
+        // "kbd", "mark", or any custom tag).
+        // Return true to indicate the tag was fully handled, false to let
+        // the built-in renderer apply its default rendering (if any).
+        // Example (C++):
+        //   callbacks.OnHtmlSpan = [](const std::string& tag, bool opening) {
+        //       if (tag == "small") {
+        //           // ... push/pop a smaller font
+        //           return true;
+        //       }
+        //       return false;
+        //   };
+        HtmlSpanFunction OnHtmlSpan;
 
         // OnDownloadData: callback to download data from a URL (empty by default).
         // When set, OnImage_Default will use it to fetch images from URLs (http:// or https://).
