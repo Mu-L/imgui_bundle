@@ -267,6 +267,7 @@ You may find these files in the imgui_bundle/imgui_bundle_assets/ folder.
             if (mMarkdownOptions->withLatex)
                 EnableLatex();
 #endif
+            set_flag(MD_FLAG_PERMISSIVEAUTOLINKS, mMarkdownOptions->autolinks);
         }
 
 #ifdef CAN_RENDER_IMAGES

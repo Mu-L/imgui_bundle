@@ -44,6 +44,18 @@ int answer()
 
 ---
 
+### Autolinks
+
+Bare URLs, `www.` hosts and email addresses become clickable links
+automatically (enabled by default; set `MarkdownOptions.autolinks = False`
+to get strict CommonMark behavior):
+
+- https://github.com/pthom/imgui_bundle
+- www.dearimgui.org
+- Contact: pthomet@gmail.com
+
+---
+
 ### Task lists
 
 GitHub-style task lists are rendered as checkbox glyphs:

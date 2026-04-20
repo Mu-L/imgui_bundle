@@ -135,6 +135,12 @@ namespace ImGuiMd
         // when IMGUI_BUNDLE_WITH_MICROTEX and FreeType are both available).
         // When false, $ is rendered as a literal character (legacy behavior).
         bool withLatex = false;
+
+        // Recognize bare URLs, email addresses and www.* as clickable links
+        // without requiring <...> or []() syntax
+        // (MD_FLAG_PERMISSIVEAUTOLINKS — URL + email + WWW).
+        // Set to false to get strict CommonMark link behavior.
+        bool autolinks = true;
     };
 
     // InitializeMarkdown: Call this once at application startup
