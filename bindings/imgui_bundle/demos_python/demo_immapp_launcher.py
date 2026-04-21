@@ -36,12 +36,16 @@ def make_gui() -> GuiFunction:
             "demo_powersave",
             "How to have smooth animations, and how spare the CPU when idling",
         ),
+        DemoApp("demo_python_context_manager",
+                "How to use a python context manager for `imgui.begin()`, `imgui.end()`, etc."),
         DemoApp(
             "demo_testengine",
             "How to use ImGui Test Engine to test and automate your application",
         ),
-        DemoApp("demo_python_context_manager",
-                "How to use a python context manager for `imgui.begin()`, `imgui.end()`, etc."),
+        DemoApp(
+            "demo_testapp",
+            "use `immapp.testing` to drive an app and capture screenshots, then exit"
+        ),
         DemoApp("demo_run_async", "(Python) How to enable parallel Python execution with GUI rendering with optimal performance"),
         DemoApp(
             "demo_command_palette",

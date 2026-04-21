@@ -164,6 +164,46 @@ def test_gui_func(ctx: imgui.test_engine.TestContext):
 my_test.gui_func = test_gui_func
 ```
 
+## Driving a GUI and capturing screenshots — `immapp.testing`
+
+ImGui Bundle ships a small testing module that combines the test engine
+with screenshot capture. Use it when you want to script an interaction
+(click, type, expand a header) and grab a PNG at chosen moments.
+
+- `immapp.testing.run(gui, test_fn, ...)` — Python: runs the GUI and drives
+  it with `test_fn(ctx)`; exits once the test finishes (override with
+  `exit_after_test=False`).
+- `immapp.testing.capture(ctx, path, window=None, flags=0)` — Python: write
+  a PNG from inside a test. Captures the full framebuffer, or a single
+  window if `window="My Window"`.
+- `immapp.testing.capture_final_frame(gui, path, ...)` — Python one-shot:
+  run the GUI for a few frames, save the final frame. No test engine.
+- `ImmApp::Testing::Capture(ctx, path, {window, flags})` — C++ equivalent
+  of `capture`, from `immapp/testing.h`.
+- `ImmApp::Testing::CaptureFinalFrame(guiFn, path, opts)` — C++ one-shot.
+
+Example:
+
+```python
+from imgui_bundle import imgui
+from imgui_bundle.immapp import testing
+
+def gui():
+    imgui.button("Click me")
+
+def my_test(ctx: imgui.test_engine.TestContext):
+    testing.capture(ctx, "/tmp/00_initial.png")
+    ctx.item_click("//**/Click me")
+    testing.capture(ctx, "/tmp/01_after_click.png")
+
+testing.run(gui, my_test, window_size=(600, 400))
+```
+
+See the full demo in
+[`demo_testapp.py`](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demos_immapp/demo_testapp.py)
+and
+[`demo_testapp.cpp`](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demos_immapp/demo_testapp.cpp).
+
 ## Running Tests
 
 When test engine is enabled:
