@@ -68,7 +68,8 @@ inline void Capture(ImGuiTestContext* ctx, const std::string& path,
             (opts.window.rfind("//", 0) == 0) ? opts.window : "//" + opts.window;
         ctx->CaptureAddWindow(ref.c_str());
     }
-    ctx->CaptureSetFilename(path.c_str());
+    if (ctx->CaptureArgs != nullptr)
+        ImStrncpy(ctx->CaptureArgs->InOutputFile, path.c_str(), IM_ARRAYSIZE(ctx->CaptureArgs->InOutputFile));
     ctx->CaptureScreenshot(opts.flags);
 }
 
