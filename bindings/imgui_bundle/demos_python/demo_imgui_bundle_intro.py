@@ -761,46 +761,50 @@ def _node_editor_slide_gui(content_size: ImVec2):
 # ============================================================================
 
 _MARKDOWN_SAMPLE = r"""
-## Quick Start Guide
+## Dear ImGui Bundle — live markdown
 
-> ***ImGui Bundle** makes it easy to build _beautiful_ apps with rich documentation.*
+> *Edit the panel on the left and watch the right update in real time.*
 
-### Features:
-* Headers, **bold**, *italic*, ~~strikethrough~~
-* [Clickable links](https://github.com/pthom/imgui_bundle)
-* Syntax-highlighted code blocks
-* Quotes
-* Markdown images. Sized images with \<img src="..." width="..." height="..." /\>
-* Images downloaded from an url (Python & Emscripten)
-* Tables
+### What you can write
 
-### Code blocks:
+- **Bold**, *italic*, ~~strike~~, <u>underline</u>, <mark>highlight</mark>, `code`
+- Keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>S</kbd>, <kbd>Cmd</kbd>+<kbd>K</kbd>
+- Chemistry & exponents: H<sub>2</sub>O, x<sup>2</sup>+y<sup>2</sup>=r<sup>2</sup>
+- [Clickable links](https://github.com/pthom/imgui_bundle) and bare URLs: https://dearimgui.org
+
+### A little code
+
 ```python
 from imgui_bundle import imgui, immapp
-immapp.run(lambda: imgui.text("Hello World!"))
+immapp.run(lambda: imgui.text("Hello, World!"))
 ```
 
-### Math
-Euler's identity $e^{i\pi} + 1 = 0$ generalizes to
+### A little math
+
+Euler's identity $e^{i\pi} + 1 = 0$ generalizes to:
 $$
 e^{i\theta} = \cos\theta + i\sin\theta
 $$
 
-### Images
+## Tables with *resizable* columns and *alignment*
 
-The image below is downloaded from an url and resized:
+|Id| Library    | What it does        |
+|-:|:----------:|---------------------|
+|1| ImGui      | Core widgets        |
+|2| ImPlot     | 2D plots            |
+|3| ImPlot3D   | 3D plots            |
+|4| ImmVision  | Image analysis      |
+|5| imgui_md   | This renderer       |
+
+> [!TIP]
+> Click the triangle below to unfold. Try adding your own collapsible section.
+
+<details>
+<summary>Images, including from the web</summary>
 
 <img src="https://picsum.photos/id/1019/200/130" height="100" />
 
-### Tables
-
-The columns of the table below can be resized.
-
-| Library   | Domain          |
-|-----------|-----------------|
-| ImPlot    | 2D plots        |
-| ImPlot3D  | 3D plots        |
-| ImmVision | Image analysis  |
+</details>
 
 """
 

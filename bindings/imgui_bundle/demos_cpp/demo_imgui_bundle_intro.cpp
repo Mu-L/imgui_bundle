@@ -871,56 +871,51 @@ namespace IntroMarkdown
 {
     static std::string MakeMarkdownSample()
     {
-        std::string md = R"(## Quick Start Guide
+        std::string md = R"(## Dear ImGui Bundle — live markdown
 
-> ***ImGui Bundle** makes it easy to build _beautiful_ apps with rich documentation.*
+> *Edit the panel on the left and watch the right update in real time.*
 
-### Features:
-* Headers, **bold**, *italic*, ~~strikethrough~~
-* [Clickable links](https://github.com/pthom/imgui_bundle)
-* Syntax-highlighted code blocks
-* Quotes
-* Markdown images. Sized images with \<img src="..." width="..." height="..." /\>
-* Images downloaded from an url (Python & Emscripten)
-* Tables
-* Math formulas (LaTeX): inline with \$...\$ and display with \$\$...\$\$
+### What you can write
 
-### Code blocks:
-```python
-from imgui_bundle import imgui, immapp
-immapp.run(lambda: imgui.text("Hello World!"))
+- **Bold**, *italic*, ~~strike~~, <u>underline</u>, <mark>highlight</mark>, `code`
+- Keyboard shortcuts: <kbd>Ctrl</kbd>+<kbd>S</kbd>, <kbd>Cmd</kbd>+<kbd>K</kbd>
+- Chemistry & exponents: H<sub>2</sub>O, x<sup>2</sup>+y<sup>2</sup>=r<sup>2</sup>
+- [Clickable links](https://github.com/pthom/imgui_bundle) and bare URLs: https://dearimgui.org
+
+### A little code
+
+```cpp
+#include "imgui.h"
+#include "immapp/immapp.h"
+ImmApp::Run([](){ ImGui::Text("Hello, World!"); });
 ```
 
-### Math
-Euler's identity $e^{i\pi} + 1 = 0$ generalizes to
+### A little math
+
+Euler's identity $e^{i\pi} + 1 = 0$ generalizes to:
 $$
 e^{i\theta} = \cos\theta + i\sin\theta
 $$
-)";
 
-#ifdef __EMSCRIPTEN__
-        md += R"(
+### Tables with *resizable* columns and *alignment*
 
-### Images
+|Id| Library    | What it does        |
+|-:|:----------:|---------------------|
+|1| ImGui      | Core widgets        |
+|2| ImPlot     | 2D plots            |
+|3| ImPlot3D   | 3D plots            |
+|4| ImmVision  | Image analysis      |
+|5| imgui_md   | This renderer       |
 
-The image below is downloaded from an url and resized:
+> [!TIP]
+> Click the triangle below to unfold. Try adding your own collapsible section.
+
+<details>
+<summary>Images, including from the web</summary>
 
 <img src="https://picsum.photos/id/1019/200/130" height="100" />
 
-)";
-#endif
-
-        md += R"(
-### Tables
-
-The columns of the table below can be resized.
-
-| Library   | Domain          |
-|-----------|-----------------|
-| ImPlot    | 2D plots        |
-| ImPlot3D  | 3D plots        |
-| ImmVision | Image analysis  |
-
+</details>
 )";
         return md;
     }
