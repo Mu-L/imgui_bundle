@@ -22,8 +22,10 @@ from typing import (
     Callable,
     Union,
     Protocol,
+    TypeAlias,
 )
 import numpy as np
+from numpy.typing import NDArray
 import enum
 from . import internal as internal
 from . import backends as backends
@@ -80,6 +82,8 @@ uint = int
 uchar = int
 char = int
 ImFontAtlasRectId = int
+
+NpBuffer: TypeAlias = NDArray[np.uint8]
 
 # -----------------------------------------------------------------------------
 # [SECTION] Forward declarations and basic types
@@ -348,7 +352,6 @@ class Vec4Protocol(Protocol):
     def __truediv__(self, other: Union[ImVec4Like, float]) -> ImVec4: ...
     def __neg__(self) -> ImVec4: ...
 
-NpBuffer = np.ndarray  # used to transfer texture data as a 1D numpy array of bytes
 
 ##################################################
 #    AUTO GENERATED CODE BELOW

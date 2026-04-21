@@ -114,15 +114,17 @@ def run(
             with_tex_inspect=with_tex_inspect,
         )
 
-    state = {"done": False, "error": None}  # type: dict
+    test_done = False
+    test_error: Optional[BaseException] = None
 
     def _wrapped_test(ctx: "imgui.test_engine.TestContext") -> None:
+        nonlocal test_done, test_error
         try:
             test_function(ctx)
         except BaseException as e:
-            state["error"] = e
+            test_error = e
         finally:
-            state["done"] = True
+            test_done = True
 
     prior_register_tests = runner_params.callbacks.register_tests
 
@@ -144,7 +146,7 @@ def run(
         def _exit_when_done() -> None:
             if callable(prior_before_render):
                 prior_before_render()
-            if state["done"]:
+            if test_done:
                 engine = hello_imgui.get_imgui_test_engine()
                 if imgui.test_engine.is_test_queue_empty(engine):
                     runner_params.app_shall_exit = True
@@ -153,8 +155,8 @@ def run(
 
     immapp.run(runner_params, add_ons_params)
 
-    if state["error"] is not None:
-        raise state["error"]
+    if test_error is not None:
+        raise test_error
 
 
 def capture_final_frame(

@@ -3,11 +3,8 @@
 import asyncio
 from typing import Any, Optional, Callable, Tuple, overload
 
-from imgui_bundle._imgui_bundle.immapp_cpp import AddOnsParams  # type: ignore
-from imgui_bundle._imgui_bundle.hello_imgui import (  # type: ignore
-    RunnerParams,
-    SimpleRunnerParams,
-)
+from imgui_bundle.immapp import AddOnsParams
+from imgui_bundle.hello_imgui import RunnerParams, SimpleRunnerParams
 
 
 @overload
