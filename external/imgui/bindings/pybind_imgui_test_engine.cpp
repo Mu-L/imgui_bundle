@@ -1059,6 +1059,14 @@ void py_init_module_imgui_test_engine(nb::module_& m)
             &ImGuiTestContext::CaptureSetExtension,
             nb::arg("ext"),
             "(private API)\n\n Set capture file format (otherwise for video this default to EngineIO->VideoCaptureExtension)")
+        // #ifdef IMGUI_BUNDLE_PYTHON_API
+        //
+        .def("capture_set_filename",
+            &ImGuiTestContext::CaptureSetFilename,
+            nb::arg("filename"),
+            " [ADAPT_IMGUI_BUNDLE]\n Route the next CaptureScreenshot*/CaptureBeginVideo to this path on disk.\n Without this, the engine auto-names the file (output/<TestName>_NNNN.png)\n and there is no way to pick the output path from Python, since\n CaptureArgs->InOutputFile is a fixed-size char buffer not exposed by\n litgen.\n(private API)")
+        // #endif
+        //
         .def("capture_add_window",
             &ImGuiTestContext::CaptureAddWindow,
             nb::arg("ref"),
@@ -1838,6 +1846,86 @@ void py_init_module_imgui_test_engine(nb::module_& m)
     m.def("open_source_file",
         ImGuiTestEngine_OpenSourceFile, nb::arg("engine"), nb::arg("source_filename"), nb::arg("source_line_no"));
     ////////////////////    </generated_from:imgui_te_ui.h>    ////////////////////
+
+
+    ////////////////////    <generated_from:imgui_capture_tool.h>    ////////////////////
+    auto pyEnumCaptureFlags_ =
+        nb::enum_<ImGuiCaptureFlags_>(m, "CaptureFlags_", nb::is_arithmetic(), nb::is_flag(), "")
+            .value("none", ImGuiCaptureFlags_None, "")
+            .value("stitch_all", ImGuiCaptureFlags_StitchAll, "Capture entire window scroll area (by scrolling and taking multiple screenshot). Only works for a single window.")
+            .value("include_other_windows", ImGuiCaptureFlags_IncludeOtherWindows, "Disable hiding other windows (when CaptureAddWindow has been called by default other windows are hidden)")
+            .value("include_popups", ImGuiCaptureFlags_IncludePopups, "Expand capture area to automatically include visible popups (Unused if ImGuiCaptureFlags_IncludeOtherWindows is set)")
+            .value("hide_mouse_cursor", ImGuiCaptureFlags_HideMouseCursor, "Hide render software mouse cursor during capture.")
+            .value("instant", ImGuiCaptureFlags_Instant, "Perform capture on very same frame. Only works when capturing a rectangular region. Unsupported features: content stitching, window hiding, window relocation.")
+            .value("no_save", ImGuiCaptureFlags_NoSave, "Do not save output image.");
+
+
+    auto pyClassImGuiCaptureArgs =
+        nb::class_<ImGuiCaptureArgs>
+            (m, "CaptureArgs", " Defines input and output arguments for capture process.\n When capturing from tests you can usually use the ImGuiTestContext::CaptureXXX() helpers functions.")
+        .def("__init__", [](ImGuiCaptureArgs * self, ImGuiCaptureFlags InFlags = 0, const std::optional<const ImVector<ImGuiWindow*>> & InCaptureWindows = std::nullopt, const std::optional<const ImRect> & InCaptureRect = std::nullopt, float InPadding = 16.0f, int InRecordFPSTarget = 30, int InSizeAlign = 0, const std::optional<const ImVec2> & OutImageSize = std::nullopt)
+        {
+            new (self) ImGuiCaptureArgs();  // placement new
+            auto r_ctor_ = self;
+            r_ctor_->InFlags = InFlags;
+            if (InCaptureWindows.has_value())
+                r_ctor_->InCaptureWindows = InCaptureWindows.value();
+            else
+                r_ctor_->InCaptureWindows = ImVector<ImGuiWindow*>();
+            if (InCaptureRect.has_value())
+                r_ctor_->InCaptureRect = InCaptureRect.value();
+            else
+                r_ctor_->InCaptureRect = ImRect();
+            r_ctor_->InPadding = InPadding;
+            r_ctor_->InRecordFPSTarget = InRecordFPSTarget;
+            r_ctor_->InSizeAlign = InSizeAlign;
+            if (OutImageSize.has_value())
+                r_ctor_->OutImageSize = OutImageSize.value();
+            else
+                r_ctor_->OutImageSize = ImVec2();
+        },
+        nb::arg("in_flags") = 0, nb::arg("in_capture_windows").none() = nb::none(), nb::arg("in_capture_rect").none() = nb::none(), nb::arg("in_padding") = 16.0f, nb::arg("in_record_fps_target") = 30, nb::arg("in_size_align") = 0, nb::arg("out_image_size").none() = nb::none()
+        )
+        .def_rw("in_flags", &ImGuiCaptureArgs::InFlags, "Flags for customizing behavior of screenshot tool.")
+        .def_rw("in_capture_windows", &ImGuiCaptureArgs::InCaptureWindows, "Windows to capture. All other windows will be hidden. May be used with InCaptureRect to capture only some windows in specified rect.")
+        .def_rw("in_capture_rect", &ImGuiCaptureArgs::InCaptureRect, "Screen rect to capture. Does not include padding.")
+        .def_rw("in_padding", &ImGuiCaptureArgs::InPadding, "Extra padding at the edges of the screenshot. Ensure that there is available space around capture rect horizontally, also vertically if ImGuiCaptureFlags_StitchAll is not used.")
+        .def_rw("in_record_fps_target", &ImGuiCaptureArgs::InRecordFPSTarget, "FPS target for recording videos.")
+        .def_rw("in_size_align", &ImGuiCaptureArgs::InSizeAlign, "Resolution alignment (0 = auto, 1 = no alignment, >= 2 = align width/height to be multiple of given value)")
+        .def_rw("out_image_size", &ImGuiCaptureArgs::OutImageSize, "Produced image size.")
+        ;
+
+
+    auto pyEnumCaptureStatus =
+        nb::enum_<ImGuiCaptureStatus>(m, "CaptureStatus", nb::is_arithmetic(), nb::is_flag(), "")
+            .value("in_progress", ImGuiCaptureStatus_InProgress, "")
+            .value("done", ImGuiCaptureStatus_Done, "")
+            .value("error", ImGuiCaptureStatus_Error, "");
+
+
+    auto pyClassImGuiCaptureWindowData =
+        nb::class_<ImGuiCaptureWindowData>
+            (m, "CaptureWindowData", "")
+        .def("__init__", [](ImGuiCaptureWindowData * self, const std::optional<const ImRect> & BackupRect = std::nullopt, const std::optional<const ImVec2> & PosDuringCapture = std::nullopt)
+        {
+            new (self) ImGuiCaptureWindowData();  // placement new
+            auto r_ctor_ = self;
+            if (BackupRect.has_value())
+                r_ctor_->BackupRect = BackupRect.value();
+            else
+                r_ctor_->BackupRect = ImRect();
+            if (PosDuringCapture.has_value())
+                r_ctor_->PosDuringCapture = PosDuringCapture.value();
+            else
+                r_ctor_->PosDuringCapture = ImVec2();
+        },
+        nb::arg("backup_rect").none() = nb::none(), nb::arg("pos_during_capture").none() = nb::none()
+        )
+        .def_rw("window", &ImGuiCaptureWindowData::Window, "")
+        .def_rw("backup_rect", &ImGuiCaptureWindowData::BackupRect, "")
+        .def_rw("pos_during_capture", &ImGuiCaptureWindowData::PosDuringCapture, "")
+        ;
+    ////////////////////    </generated_from:imgui_capture_tool.h>    ////////////////////
 
     // </litgen_pydef> // Autogenerated code end
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  AUTOGENERATED CODE END !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

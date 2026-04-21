@@ -160,7 +160,7 @@ def autogenerate_imgui_test_engine() -> None:
     generator.process_cpp_file(imgui_test_engine_dir + "/imgui_te_context.h")
     generator.process_cpp_file(imgui_test_engine_dir + "/imgui_te_internal.h")
     generator.process_cpp_file(imgui_test_engine_dir + "/imgui_te_ui.h")
-    # generator.process_cpp_file(imgui_test_engine_dir + "/imgui_capture_tool.h")
+    generator.process_cpp_file(imgui_test_engine_dir + "/imgui_capture_tool.h")
     generator.write_generated_code(
         output_cpp_pydef_file=PYDEF_DIR + "/pybind_imgui_test_engine.cpp",
         output_stub_pyi_file=STUB_DIR + "/imgui/test_engine.pyi",

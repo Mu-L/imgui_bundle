@@ -68,6 +68,7 @@ TestCheckFlags = int
 TestFlags = int
 TestOpFlags = int
 TestLogFlags = int
+CaptureFlags = int
 
 TestVerboseLevel_Warning = TestVerboseLevel.warning  # noqa
 TestVerboseLevel_Info = TestVerboseLevel.info  # noqa
@@ -1582,6 +1583,21 @@ class TestContext:
         Set capture file format (otherwise for video this default to EngineIO->VideoCaptureExtension)
         """
         pass
+    #                                                                     #ifdef IMGUI_BUNDLE_PYTHON_API
+    #
+    # void        CaptureSetFilename(const char* filename);    /* original C++ signature */
+    def capture_set_filename(self, filename: str) -> None:
+        """[ADAPT_IMGUI_BUNDLE]
+         Route the next CaptureScreenshot*/CaptureBeginVideo to this path on disk.
+         Without this, the engine auto-names the file (output/<TestName>_NNNN.png)
+         and there is no way to pick the output path from Python, since
+         CaptureArgs->InOutputFile is a fixed-size char buffer not exposed by
+         litgen.
+        (private API)
+        """
+        pass
+    #                                                                     #endif
+    #
     # bool        CaptureAddWindow(ImGuiTestRef ref);                                     /* original C++ signature */
     def capture_add_window(self, ref: Union[TestRef, str]) -> bool:
         """(private API)
@@ -2654,5 +2670,131 @@ def open_source_file(engine: TestEngine, source_filename: str, source_line_no: i
     pass
 
 ####################    </generated_from:imgui_te_ui.h>    ####################
+
+####################    <generated_from:imgui_capture_tool.h>    ####################
+# dear imgui test engine
+# (screen/video capture tool)
+# This is usable as a standalone applet or controlled by the test engine.
+
+# This file is governed by the "Dear ImGui Test Engine License".
+# Details of the license are provided in the LICENSE.txt file in the same directory.
+
+# Need "imgui_te_engine.h" included for ImFuncPtr
+
+# -----------------------------------------------------------------------------
+# Forward declarations
+# -----------------------------------------------------------------------------
+
+# Our types
+
+# External types
+
+# -----------------------------------------------------------------------------
+
+class CaptureFlags_(enum.IntFlag):
+    # ImGuiCaptureFlags_None                      = 0,    /* original C++ signature */
+    none = enum.auto()  # (= 0)
+    # ImGuiCaptureFlags_StitchAll                 = 1 << 0,       /* original C++ signature */
+    stitch_all = (
+        enum.auto()
+    )  # (= 1 << 0)  # Capture entire window scroll area (by scrolling and taking multiple screenshot). Only works for a single window.
+    # ImGuiCaptureFlags_IncludeOtherWindows       = 1 << 1,       /* original C++ signature */
+    include_other_windows = (
+        enum.auto()
+    )  # (= 1 << 1)  # Disable hiding other windows (when CaptureAddWindow has been called by default other windows are hidden)
+    # ImGuiCaptureFlags_IncludePopups             = 1 << 2,       /* original C++ signature */
+    include_popups = (
+        enum.auto()
+    )  # (= 1 << 2)  # Expand capture area to automatically include visible popups (Unused if ImGuiCaptureFlags_IncludeOtherWindows is set)
+    # ImGuiCaptureFlags_HideMouseCursor           = 1 << 3,       /* original C++ signature */
+    hide_mouse_cursor = enum.auto()  # (= 1 << 3)  # Hide render software mouse cursor during capture.
+    # ImGuiCaptureFlags_Instant                   = 1 << 4,       /* original C++ signature */
+    instant = (
+        enum.auto()
+    )  # (= 1 << 4)  # Perform capture on very same frame. Only works when capturing a rectangular region. Unsupported features: content stitching, window hiding, window relocation.
+    # ImGuiCaptureFlags_NoSave                    = 1 << 5        /* original C++ signature */
+    no_save = enum.auto()  # (= 1 << 5)  # Do not save output image.
+
+class CaptureArgs:
+    """Defines input and output arguments for capture process.
+    When capturing from tests you can usually use the ImGuiTestContext::CaptureXXX() helpers functions.
+    """
+
+    # [Input]
+    # ImGuiCaptureFlags       InFlags = 0;    /* original C++ signature */
+    in_flags: CaptureFlags = 0  # Flags for customizing behavior of screenshot tool.
+    # ImVector<ImGuiWindow*>  InCaptureWindows;    /* original C++ signature */
+    in_capture_windows: ImVector_Window_ptr  # Windows to capture. All other windows will be hidden. May be used with InCaptureRect to capture only some windows in specified rect.
+    # ImRect                  InCaptureRect;    /* original C++ signature */
+    in_capture_rect: ImRect  # Screen rect to capture. Does not include padding.
+    # float                   InPadding = 16.0f;    /* original C++ signature */
+    in_padding: float = (
+        16.0  # Extra padding at the edges of the screenshot. Ensure that there is available space around capture rect horizontally, also vertically if ImGuiCaptureFlags_StitchAll is not used.
+    )
+    # int                     InRecordFPSTarget = 30;    /* original C++ signature */
+    in_record_fps_target: int = 30  # FPS target for recording videos.
+    # int                     InSizeAlign = 0;    /* original C++ signature */
+    in_size_align: int = (
+        0  # Resolution alignment (0 = auto, 1 = no alignment, >= 2 = align width/height to be multiple of given value)
+    )
+
+    # [Output]
+    # ImVec2                  OutImageSize;    /* original C++ signature */
+    out_image_size: ImVec2  # Produced image size.
+    # ImGuiCaptureArgs(ImGuiCaptureFlags InFlags = 0, ImVector<ImGuiWindow*> InCaptureWindows = ImVector<ImGuiWindow*>(), ImRect InCaptureRect = ImRect(), float InPadding = 16.0f, int InRecordFPSTarget = 30, int InSizeAlign = 0, ImVec2 OutImageSize = ImVec2());    /* original C++ signature */
+    def __init__(
+        self,
+        in_flags: CaptureFlags = 0,
+        in_capture_windows: Optional[ImVector_Window] = None,
+        in_capture_rect: Optional[ImRect] = None,
+        in_padding: float = 16.0,
+        in_record_fps_target: int = 30,
+        in_size_align: int = 0,
+        out_image_size: Optional[ImVec2Like] = None,
+    ) -> None:
+        """Auto-generated default constructor with named params
+
+
+        Python bindings defaults:
+            If any of the params below is None, then its default value below will be used:
+                * InCaptureWindows: ImVector_Window_ptr()
+                * InCaptureRect: ImRect()
+                * OutImageSize: ImVec2()
+        """
+        pass
+
+class CaptureStatus(enum.IntFlag):
+    # ImGuiCaptureStatus_InProgress,    /* original C++ signature */
+    in_progress = enum.auto()  # (= 0)
+    # ImGuiCaptureStatus_Done,    /* original C++ signature */
+    done = enum.auto()  # (= 1)
+    # ImGuiCaptureStatus_Error    /* original C++ signature */
+    # }
+    error = enum.auto()  # (= 2)
+
+class CaptureWindowData:
+    # ImGuiWindow*            Window;    /* original C++ signature */
+    window: Window
+    # ImRect                  BackupRect;    /* original C++ signature */
+    backup_rect: ImRect
+    # ImVec2                  PosDuringCapture;    /* original C++ signature */
+    pos_during_capture: ImVec2
+    # ImGuiCaptureWindowData(ImRect BackupRect = ImRect(), ImVec2 PosDuringCapture = ImVec2());    /* original C++ signature */
+    def __init__(self, backup_rect: Optional[ImRect] = None, pos_during_capture: Optional[ImVec2Like] = None) -> None:
+        """Auto-generated default constructor with named params
+
+
+        Python bindings defaults:
+            If any of the params below is None, then its default value below will be used:
+                * BackupRect: ImRect()
+                * PosDuringCapture: ImVec2()
+        """
+        pass
+
+# -----------------------------------------------------------------------------
+# ImGuiCaptureToolUI
+# -----------------------------------------------------------------------------
+
+####################    </generated_from:imgui_capture_tool.h>    ####################
 
 # </litgen_stub> // Autogenerated code end!
