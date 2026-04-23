@@ -2,9 +2,9 @@
 
 # v1.92.700
 
-## Updated Dear ImGui to [v1.92.7](https://github.com/ocornut/imgui/releases/tag/v1.92.7)
+## Updated Dear ImGui to v1.92.7
 
-Highlights: table columns reorderable via context menu, Shift+Enter always inserts newlines in multi-line InputText, border sizes now scale via `ScaleAllSizes()`, new `style.SeparatorSize`, improved ImDrawList buffer management, Shift+F10/Menu key opens context popups. Breaking: removed legacy `Combo()`/`ListBox()` callback signatures deprecated since v1.90.
+See [release info for v1.92.7](https://github.com/ocornut/imgui/releases/tag/v1.92.7).
 
 ## ImPlot v1.0 - Per-index color/size support
 
@@ -18,7 +18,9 @@ Highlights: table columns reorderable via context menu, Shift+Enter always inser
 - New Python demo: Per-Index Colors (colorful lines, scatter, triangles, quads, Gouraud-shaded duck)
 - Refactored Custom Per-Point Style demo to use batched per-index arrays
 
-## Markdown: LaTeX math rendering
+## Markdown Rendered Improvements
+
+### Added LaTeX math rendering
 
 LaTeX math is now supported in the Markdown renderer, using the new `imgui_microtex` library (native rendering via MicroTeX + FreeType). Enable it with `AddOnsParams.with_latex = True`.
 
@@ -27,12 +29,20 @@ LaTeX math is now supported in the Markdown renderer, using the new `imgui_micro
 - Pyodide: lazy-download LaTeX fonts via jsdelivr
 - Frame-generation cache eviction (default 60 frames)
 
+### Markdown: HTML and CommonMark extensions
+
+- Task lists: `- [ ]` / `- [x]`
+- GitHub-style admonitions: `> [!NOTE]`, `> [!WARNING]`, `> [!TIP]`, etc.
+- Permissive autolinks (bare URLs become links; opt-out available)
+- Inline HTML spans: `<sub>`, `<sup>`, `<kbd>`, `<mark>`, plus an `OnHtmlSpan` callback for custom spans
+- `<details>` / `<summary>` collapsibles
+- `<pre>` blocks
+- `<img>` tags with width/height, async download (desktop via libcurl, Pyodide via JS fetch)
+
 ### Other Markdown improvements
 
-- URL image support: `<img>` tags with width/height, async download (desktop via libcurl, Pyodide via JS fetch)
-- Blockquote rendering
-- Adaptive code snippet colors
-- Renamed `IMGUI_MARKDOWN_WITH_DOWNLOAD_IMAGES` to `IMGUI_RICHMD_WITH_DOWNLOAD_IMAGES`
+- Adaptive code snippet colors: new `SnippetTheme::Auto` picks dark or light based on current ImGui theme
+- TextEdit no longer shows a caret in coded blocks.
 
 ## Pyodide / Playground
 
@@ -96,6 +106,14 @@ Same renames as Python (CamelCase). Additionally:
 - Skip `TearDown` if it already ran at exit (e.g. if it threw an exception itself)
 - Suppress GCC false positive `-Wstringop-overflow` in stb_image
 - Document theming API
+
+## Test Engine: interaction and screenshot tooling
+
+New helpers for driving an ImGui app from Python (or C++) and capturing screenshots, useful for visual self-validation and automated testing.
+
+- New `immapp.testing` module: high-level helpers to interact with widgets and capture screenshots
+- Bind `imgui_capture_tool.h` for Python; add `CaptureSetFilename`
+- `HelloImGui::OpenglScreenshotRgb`: report an explicit error if capture fails
 
 ## ImmVision
 
