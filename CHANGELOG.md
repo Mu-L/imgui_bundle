@@ -140,6 +140,7 @@ New helpers for driving an ImGui app from Python (or C++) and capturing screensh
 - `imgui_explorer`: show `im_anim.pyi` in Python (#406)
 - Fix `get_style_color_vec4` / `color_convert_rgb_to_hsv` bindings
 - `register_demos_assets_folder()` helper
+- async runners: fix an issue where immapp.run_async could use 100% CPU (cf [#460](https://github.com/pthom/imgui_bundle/issues/460))
 
 ## Documentation
 

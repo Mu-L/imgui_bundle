@@ -73,10 +73,8 @@ async def run_async(*args: Any, **kwargs: Any) -> None:
     For Jupyter notebook usage, see immapp.nb.start() for a more convenient API.
     """
     # Import here to avoid issues at module load time
-    from imgui_bundle import _imgui_bundle
     from imgui_bundle import hello_imgui
-
-    manual_render = _imgui_bundle.immapp_cpp.manual_render
+    from imgui_bundle.immapp import manual_render
 
     # Determine which setup method to use based on arguments
     if len(args) >= 1:
@@ -142,18 +140,23 @@ async def run_async(*args: Any, **kwargs: Any) -> None:
         raise TypeError("run_async() requires at least one argument")
 
     # Configure FPS settings for optimal async performance
-    # This ensures C++ code returns early to Python instead of sleeping,
-    # allowing maximum parallelism between GUI rendering and Python code execution
+    # EarlyReturn mode ensures C++ code never blocks: it returns immediately
+    # and tells Python how long to wait (see _priv_idle_frame_wait_duration_for_python_async_io)
     params = hello_imgui.get_runner_params()
-    params.fps_idling.fps_idling_mode = hello_imgui.FpsIdlingMode.early_return  # Use early return mode
-    params.fps_idling.vsync_to_monitor = False  # Disable vsync which is implemented via sleep
-    params.fps_idling.fps_max = 60.0  # Limit to 60 FPS (otherwise we may run at 500+ FPS on fast machines)
+    params.fps_idling.fps_idling_mode = hello_imgui.FpsIdlingMode.early_return
+    params.fps_idling.vsync_to_monitor = False  # vsync is implemented via sleep in the backend
+    if params.fps_idling.fps_max <= 0.0:
+        params.fps_idling.fps_max = 60.0  # default cap to avoid 1000+ FPS spins
 
     # Async render loop
     try:
         while not hello_imgui.get_runner_params().app_shall_exit:
             manual_render.render()
-            await asyncio.sleep(0)  # Yield control to the event loop
+            wait_time = hello_imgui._priv_idle_frame_wait_duration_for_python_async_io()  # type: ignore
+            if wait_time > 0.0:
+                await asyncio.sleep(wait_time)
+            else:
+                await asyncio.sleep(0)
     finally:
         # Ensure cleanup happens even if an exception occurs
         manual_render.tear_down()
