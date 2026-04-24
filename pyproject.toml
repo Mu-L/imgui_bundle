@@ -87,8 +87,8 @@ test = ["pytest", "pytest-asyncio", "mypy"]
 
 
 [project.urls]
-Homepage = "https://pthom.github.io/imgui_bundle/"
-Documentation = "https://pthom.github.io/imgui_bundle/"
+Homepage = "https://imgui-bundle.pages.dev/"
+Documentation = "https://imgui-bundle.pages.dev/"
 Repository = "https://github.com/pthom/imgui_bundle"
 Issues = "https://github.com/pthom/imgui_bundle/issues"
 Changelog = "https://github.com/pthom/imgui_bundle/blob/main/CHANGELOG.md"

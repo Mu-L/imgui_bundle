@@ -47,6 +47,6 @@ A series of video tutorials about Dear ImGui Bundle, Hello ImGui and Fiatlight:
 You may feed the manuals below to a LLM, so that it can help you when using the libraries.
 
 - [Hello ImGui manual (full pdf)](https://pthom.github.io/hello_imgui/hello_imgui_book.pdf)
-- [ImGui Bundle manual (full pdf)](https://pthom.github.io/imgui_bundle/assets/book.pdf)
+- [ImGui Bundle manual (full pdf)](https://imgui-bundle.pages.dev/assets/book.pdf)
 - [Fiatlight manual (full pdf)](https://pthom.github.io/fiatlight/flgt.pdf)
 

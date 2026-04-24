@@ -312,7 +312,7 @@ namespace
             ImGui::BeginChild("fff", HelloImGui::EmToVec2(40.f, 3.f), false, ImGuiWindowFlags_NoScrollbar);
             // ImGui::Dummy(ImVec2(HelloImGui::EmSize(35.f), 0));
              ImGuiMd::RenderUnindented(R"(
-                Dear ImGui Explorer is developed as a part of [Dear imGui Bundle](https://pthom.github.io/imgui_bundle/).
+                Dear ImGui Explorer is developed as a part of [Dear imGui Bundle](https://imgui-bundle.pages.dev/).
                 See [Source code](https://github.com/pthom/imgui_bundle/tree/main/external/imgui_explorer/imgui_explorer)
 
                 Also see: [Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/)

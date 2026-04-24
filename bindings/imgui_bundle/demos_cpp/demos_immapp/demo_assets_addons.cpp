@@ -55,7 +55,7 @@ void DemoAssets(AppState& appState)
     ImVec2 imageSize = HelloImGui::EmToVec2(3.f, 3.f);
     HelloImGui::ImageFromAsset("images/world.png", imageSize);
 
-    ImGuiMd::Render("**Read the [documentation about assets](https://pthom.github.io/imgui_bundle/quickstart.html#quickstart_about_assets)**");
+    ImGuiMd::Render("**Read the [documentation about assets](https://imgui-bundle.pages.dev/quickstart.html#quickstart_about_assets)**");
 
     ShowDoc("AssetsDoc");
 }

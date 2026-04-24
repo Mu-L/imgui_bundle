@@ -1644,7 +1644,7 @@ void RenderLinksRow()
     struct LinkInfo { const char* label; const char* url; const char* tooltip; };
     LinkInfo links[] = {
         {"GitHub", "https://github.com/pthom/imgui_bundle", "Source code, issues, discussions"},
-        {"Documentation", "https://pthom.github.io/imgui_bundle/", "Full documentation for Dear ImGui Bundle"},
+        {"Documentation", "https://imgui-bundle.pages.dev/", "Full documentation for Dear ImGui Bundle"},
         {"Python Playground", "https://imgui-bundle.pages.dev/playground/", "Live Python sandbox with demos - edit and run in your browser"},
     };
     for (int i = 0; i < IM_ARRAYSIZE(links); i++)
@@ -1676,7 +1676,7 @@ void RenderMoreInfo()
 Dear ImGui Bundle is a batteries-included framework built on Dear ImGui. It bundles 20+ libraries - plotting, markdown, node editors, 3D gizmos, and more - and works in C++ and Python, on desktop, mobile, and web.
 )");
 
-    ImGuiMd::RenderUnindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://pthom.github.io/imgui_bundle/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.");
+    ImGuiMd::RenderUnindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://imgui-bundle.pages.dev/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.");
     ImGui::SameLine();
     ImGui::TextDisabled("Start your first app in 2\xe2\x80\x93""3 lines of code.");
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal))
@@ -1699,7 +1699,7 @@ Dear ImGui Bundle is a batteries-included framework built on Dear ImGui. It bund
     ImGuiMd::RenderUnindented(R"(
     **Links:**
     - [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive reference manual - browse demos, see the code, try the widgets. *(You are here!)*
-    - [Documentation](https://pthom.github.io/imgui_bundle/): Full documentation
+    - [Documentation](https://imgui-bundle.pages.dev/): Full documentation
     - [Python Playground](https://imgui-bundle.pages.dev/playground/): Live Python sandbox with ready-to-run demos - edit code, see results instantly
     - [GitHub](https://github.com/pthom/imgui_bundle): Source code, issues, discussions
     - [Discord](https://discord.gg/xkzpKMeYN3): Community (new!)

@@ -2,7 +2,7 @@
 <img src="https://raw.githubusercontent.com/pthom/imgui_bundle/refs/heads/main/bindings/imgui_bundle/demos_assets/images/badge_interactive_explorer.png" alt="interactive explorer" height="25"/>
 </a>
 &nbsp;
-<a href="https://pthom.github.io/imgui_bundle/">
+<a href="https://imgui-bundle.pages.dev/">
 <img src="https://raw.githubusercontent.com/pthom/imgui_bundle/refs/heads/main/bindings/imgui_bundle/demos_assets/images/badge_view_docs.png" alt="view docs" height="25"/>
 </a>
 
@@ -55,7 +55,7 @@ Join the **[Discord server](https://discord.gg/xkzpKMeYN3)** for questions, show
 
 ## Documentation
 
-<a href="https://pthom.github.io/imgui_bundle/">
+<a href="https://imgui-bundle.pages.dev/">
 <img src="https://raw.githubusercontent.com/pthom/imgui_bundle/refs/heads/main/bindings/imgui_bundle/demos_assets/images/badge_view_docs.png" alt="view docs" height="25"/>
 </a>
 

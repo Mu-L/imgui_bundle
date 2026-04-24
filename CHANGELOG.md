@@ -234,8 +234,9 @@ Added [ImAnim](https://github.com/pthom/im_anim), a tweening and animation libra
 - Update imgui_md: render tables using ImGui tables (resizable columns), delay before showing link hrefs
 
 ## Python: Async run and notebook support
-- Added `hello_imgui.run_async()` / `immapp.run_async()` for async/await support (with maximal performance). See [doc for async](https://pthom.github.io/imgui_bundle/python/python-async/)
-- Added `immapp.nb` module for non-blocking Jupyter notebook execution (`nb.start()`, `nb.stop()`, `nb.is_running()`). See [doc for notebook](https://pthom.github.io/imgui_bundle/python/notebook-runners/)
+- Added `hello_imgui.run_async()` / `immapp.run_async()` for async/await support (with maximal performance). See [doc for async] (https://imgui-bundle.pages.dev/python/python-async/)
+
+- Added `immapp.nb` module for non-blocking Jupyter notebook execution (`nb.start()`, `nb.stop()`, `nb.is_running()`). See [doc for notebook](https://imgui-bundle.pages.dev/python/notebook-runners/)
 - Added `hello_imgui.nb` convenience module
 
 ## Pyodide (web) support
@@ -266,7 +267,7 @@ Added [ImAnim](https://github.com/pthom/im_anim), a tweening and animation libra
 - Fix: shell injection in BrowseToUrl (replaced `system()` with `fork+execlp`)
 
 ## Documentation
-- Complete documentation overhaul using Jupyter Book, available as [PDF](https://pthom.github.io/imgui_bundle/assets/book.pdf)
+- Complete documentation overhaul using Jupyter Book, available as [PDF](https://imgui-bundle.pages.dev/assets/book.pdf)
 - Added developer documentation (building, bindings, repo structure)
 
 # v1.92.5
@@ -636,7 +637,7 @@ See changes in [Hello ImGui v1.5.0-rc1](https://github.com/pthom/hello_imgui/rel
 # v1.1.0
 
 ### 3D
-* Added callback `runnerParams.callbacks.CustomBackground`: display any 3D scene in the background of the app: see [doc](https://pthom.github.io/imgui_bundle/quickstart.html#_custom_3d_background)
+* Added callback `runnerParams.callbacks.CustomBackground`: display any 3D scene in the background of the app: see [doc](https://imgui-bundle.pages.dev/quickstart.html#_custom_3d_background)
   ![Custom background](bindings/imgui_bundle/doc/doc_images/demo_custom_background.jpg)
 
 ### App deployment
@@ -699,10 +700,10 @@ _Note: See [Dear ImGui Test Engine License](https://github.com/ocornut/imgui_tes
 <img src="https://raw.githubusercontent.com/pthom/imgui_bundle/main/bindings/imgui_bundle/doc/doc_images/demo_widgets_coolbar.jpg" width=200>
 
 ### Doc
-* Completely reviewed the [doc site](https://pthom.github.io/imgui_bundle/).
-* Added ["quickstart & example"](https://pthom.github.io/imgui_bundle/quickstart.html) section, with lots of examples
-* Added & reviewed [development doc](https://pthom.github.io/imgui_bundle/devel_docs/index.html)
-* Added specific [doc / bindings maintenance](https://pthom.github.io/imgui_bundle/devel_docs/bindings.html) (and how to add bindings for new libraries)
+* Completely reviewed the [doc site](https://imgui-bundle.pages.dev/).
+* Added ["quickstart & example"](https://imgui-bundle.pages.dev/quickstart.html) section, with lots of examples
+* Added & reviewed [development doc](https://imgui-bundle.pages.dev/devel_docs/index.html)
+* Added specific [doc / bindings maintenance](https://imgui-bundle.pages.dev/devel_docs/bindings.html) (and how to add bindings for new libraries)
 
 ### Misc
 * Python bindings stubs: add @overload everywhere when required

@@ -18,7 +18,7 @@ Write Python apps that stay readable and understandable, and run with the same c
 
 **See also:**
 * [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive manual - all libraries, live demos (even more than here!), browsable source
-* [Documentation](https://pthom.github.io/imgui_bundle/): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
+* [Documentation](https://imgui-bundle.pages.dev/): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
 * [DeepWiki](https://deepwiki.com/pthom/imgui_bundle): AI-powered Q&A about the framework
 * [Discord](https://discord.gg/xkzpKMeYN3): join the community (new!)
 
