@@ -263,14 +263,14 @@ cf_stage:
     # 2. Copy min_pyodide_app
     # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/min_pyodide_app
-    cd pyodide_projects/projects/min_bundle_pyodide_app && cp -f demo_heart.html demo_heart.source.txt
-    rsync -a pyodide_projects/projects/min_bundle_pyodide_app/ {{_CF_STAGING}}/min_pyodide_app/
+    cd pyodide_projects/projects/min_pyodide_app && cp -f demo_heart.html demo_heart.source.txt
+    rsync -a pyodide_projects/projects/min_pyodide_app/ {{_CF_STAGING}}/min_pyodide_app/
     #
     # 3. Copy python playground
     # ------------------------------------------------------------
     # --copy-unsafe-links resolves the examples/ symlink (points outside the tree)
     rm -rf {{_CF_STAGING}}/playground {{_CF_STAGING}}/local_wheels
-    rsync -a --copy-unsafe-links pyodide_projects/projects/imgui_bundle_playground/ {{_CF_STAGING}}/playground/
+    rsync -a --copy-unsafe-links pyodide_projects/projects/playground/ {{_CF_STAGING}}/playground/
     rsync -a pyodide_projects/projects/local_wheels/ {{_CF_STAGING}}/local_wheels/
     #
     # 4. Copy imgui bundle explorer (ibex)
