@@ -177,3 +177,5 @@ emsdk/
 .aider*
 .wrangler/
 
+# Cloudflare files staging (before upload)
+_cf_staging

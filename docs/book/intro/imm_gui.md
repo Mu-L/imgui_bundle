@@ -232,4 +232,4 @@ int main(int , char *[]) {
 These apps can be easily deployed on the web, either in C++ via Emscripten, or in Python via Pyodide.
 
 * Online demo (C++/Emscripten): [Heart Pulse Demo](https://imgui-bundle.pages.dev/explorer/haiku_implot_heart.html)
-* Online demo (Python/Pyodide): [Heart Pulse Demo - Pyodide](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.html), and [html + python source code](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.source.txt)
+* Online demo (Python/Pyodide): [Heart Pulse Demo - Pyodide](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart), and [html + python source code](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.source.txt)

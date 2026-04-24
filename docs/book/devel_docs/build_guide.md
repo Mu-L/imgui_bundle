@@ -182,7 +182,6 @@ The `justfile` at the repo root provides shortcuts for common tasks. Run `just` 
 |---------|-------------|
 | `just ibex_build` | Build ImGui Bundle Explorer (Emscripten + OpenCV) |
 | `just ibex_serve` | Serve explorer on port 8642 |
-| `just ibex_deploy` | Deploy explorer to traineq.org |
 | `just imex_ems_build` | Build ImGui Explorer (Emscripten, lightweight) |
 | `just imex_ems_serve` | Serve ImGui Explorer on port 7006 |
 | `just imex_ems_deploy` | Deploy ImGui Explorer to GitHub Pages |

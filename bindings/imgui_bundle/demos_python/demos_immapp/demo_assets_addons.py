@@ -202,7 +202,7 @@ def get_doc(which_doc: str) -> str:
             It supports the most common markdown features: emphasis, link, code blocks, etc.
         """,
         "PlotDoc": """
-            By using ImPlot, you can display lots of different plots. See [online demo](https://traineq.org/implot_demo/src/implot_demo.html) which demonstrates lots of plot types (LinePlot, ScatterPlot, Histogram, Error Bars, Heatmaps, etc.)
+            By using ImPlot, you can display lots of different plots. See [online demo](https://pthom.github.io/imgui_explorer/?lib=implot) which demonstrates lots of plot types (LinePlot, ScatterPlot, Histogram, Error Bars, Heatmaps, etc.)
 
             Note: in order to use ImPlot, you need to "activate" this add-on, like this:
 

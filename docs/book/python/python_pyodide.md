@@ -8,8 +8,8 @@ Dear ImGui Bundle applications can be effortlessly deployed to the web using Pyo
 
 With Pyodide, web deployment is as easy as copying the HTML template below. The Python code is unchanged from what you'd use for desktop.
 
-* [HTML template source](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.source.txt)
-* [HTML template (run it)](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.html)
+* [HTML template source](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.source.txt)
+* [HTML template (run it)](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart)
 
 ```{figure} ../images/heart.png
 :alt: Animated heart app running in a web browser using Pyodide
@@ -24,7 +24,7 @@ Opening it directly via `file://` prevents package loading.
 
 ### How it works
 
-The [template](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/demo_heart.source.txt) is organised into four clearly marked parts.
+The [template](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.source.txt) is organised into four clearly marked parts.
 
 **Part 1 — Load Pyodide from a CDN**
 
@@ -101,9 +101,9 @@ main();
 
 ### Where to find Pyodide wheels for imgui_bundle
 
-* [Wheel used in the official demo](https://traineq.org/imgui_bundle_online/projects/min_bundle_pyodide_app/local_wheels/)
 * [Release wheels](https://github.com/pthom/imgui_bundle/releases) — attached to each GitHub release
 * [Nightly builds](https://github.com/pthom/imgui_bundle/actions/workflows/pyodide.yml) — download a wheel directly from GitHub Actions
+* Wheel used in the [official demo](imgui-bundle.pages.dev/min_pyodide_app/demo_heart.html) (look at the source to find the wheel)
 
 Wheels must match the Pyodide version **and** Python version used in the template.
 
