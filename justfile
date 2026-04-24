@@ -83,17 +83,6 @@ ibex_build:
 ibex_clean:
     rm -rf build_ibex_ems
 
-# Deploy the imgui bundle explorer build (old url: rsync -vaz bin pascal@traineq.org:HTML/ImGuiBundle/emscripten)
-[group('ibex')]
-ibex_deploy: ibex_build
-    # The server supports gzip encoding, this speed up the loading a lot, especially for the .wasm files
-    cp build_ibex_ems/bin/demo_imgui_bundle.html build_ibex_ems/bin/index.html
-    gzip -9 -k -f build_ibex_ems/bin/*.wasm build_ibex_ems/bin/*.data build_ibex_ems/bin/*.js
-    cd build_ibex_ems && \
-    rsync -vaz bin/ pascal@traineq.org:HTML/imgui_bundle_explorer/
-    scp build_ibex_ems/bin/demo_imgui_bundle.html pascal@traineq.org:HTML/imgui_bundle_explorer/index.html
-    echo "Deployed to https://imgui-bundle.pages.dev/explorer/"
-
 # Serve emscripten with CORS
 [group('ibex')]
 ibex_serve:
@@ -240,20 +229,6 @@ pyodide_setup_recipe_clone:
     cd ci_scripts/pyodide_local_build/pyodide_recipes && git remote add fork https://github.com/pthom/pyodide-recipes.git
 
 
-_PYODIDE_DEPLOY_LOCAL_FOLDER := "./pyodide_projects/projects"
-_PYODIDE_DEPLOY_REMOTE_FOLDER := "/home/pascal/HTML/imgui_bundle_online/projects"
-_PYODIDE_DEPLOY_REMOTE_HOST := "pascal@traineq.org"
-
-# Deploy pyodide playground and minimal template
-[group('pyodide')]
-pyodide_deploy_imgui_bundle_online:
-    cd {{_PYODIDE_DEPLOY_LOCAL_FOLDER}}/min_bundle_pyodide_app && cp -f demo_heart.html demo_heart.source.txt
-    # we add --copy-unsafe-links to copy the content of the symlink pyodide_projects/projects/imgui_bundle_playground/examples
-    # (which points to bindings/imgui_bundle/demos_python/playground/examples)
-    rsync -avz --delete --copy-unsafe-links {{_PYODIDE_DEPLOY_LOCAL_FOLDER}}/ {{_PYODIDE_DEPLOY_REMOTE_HOST}}:{{_PYODIDE_DEPLOY_REMOTE_FOLDER}}/
-    echo "Deployed to https://traineq.org/imgui_bundle_online/"
-
-
 # ==============================================================
 # Cloudflare Pages deploy (to https://imgui-bundle.pages.dev/)
 # ==============================================================
@@ -268,7 +243,7 @@ pyodide_deploy_imgui_bundle_online:
 # Requires: wrangler (`npm i -g wrangler`) and either
 #   - env vars CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID, or
 #   - `wrangler login` / `wrangler whoami` auth
-_CF_STAGING := "pyodide_projects/_cf_staging"
+_CF_STAGING := "_cf_staging"
 _CF_PROJECT := "imgui-bundle"
 
 # builds all the elements required by cf_stage (doc, explorer, pyodide wheel, etc)
@@ -280,21 +255,25 @@ cf_stage_prepare: doc_build_cf ibex_build pyodide_setup_local_build pyodide_buil
 cf_stage:
     # 0. Make dir pyodide_projects/_cf_staging (gitignored)
     mkdir -p {{_CF_STAGING}}
+    #
     # 1. Copy the CF _headers file
     # ------------------------------------------------------------
     cp pyodide_projects/cf_headers {{_CF_STAGING}}/_headers
+    #
     # 2. Copy min_pyodide_app
     # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/min_pyodide_app
     cd pyodide_projects/projects/min_bundle_pyodide_app && cp -f demo_heart.html demo_heart.source.txt
     rsync -a pyodide_projects/projects/min_bundle_pyodide_app/ {{_CF_STAGING}}/min_pyodide_app/
+    #
     # 3. Copy python playground
     # ------------------------------------------------------------
     # --copy-unsafe-links resolves the examples/ symlink (points outside the tree)
     rm -rf {{_CF_STAGING}}/playground {{_CF_STAGING}}/local_wheels
     rsync -a --copy-unsafe-links pyodide_projects/projects/imgui_bundle_playground/ {{_CF_STAGING}}/playground/
     rsync -a pyodide_projects/projects/local_wheels/ {{_CF_STAGING}}/local_wheels/
-    # 4. Copy bundle explorer (ibex)
+    #
+    # 4. Copy imgui bundle explorer (ibex)
     # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/explorer
     rsync -a --exclude='*.gz' build_ibex_ems/bin/ {{_CF_STAGING}}/explorer/
@@ -303,10 +282,19 @@ cf_stage:
     # overrides their Content-Type to application/wasm so CF auto-compresses
     # them at the edge (application/octet-stream is not in CF's compressible
     # MIME list, and CF strips user-set Content-Encoding from _headers).
-    # 5. Copy jupyter-book documentation to the staging ROOT (its index.html
-    #    becomes the site landing page). Run `just doc_build_cf` first.
+    #
+    # 5. Copy jupyter-book documentation to the staging ROOT (its index.html becomes the site landing page).
+    # Run `just doc_build_cf` first.
     # ------------------------------------------------------------
     rsync -a docs/book/_build/html/ {{_CF_STAGING}}/
+    #
+    # 6. Copy website_resources
+    rm -rf {{_CF_STAGING}}/website_resources
+    rsync -a docs/submodule_website_resources/ {{_CF_STAGING}}/resources/
+    # Place an up to date assets.zip
+    cd bindings/imgui_bundle && zip -r assets.zip assets/ && cd -
+    mv  bindings/imgui_bundle/assets.zip {{_CF_STAGING}}/resources/assets.zip
+
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
 [group('cloudflare')]

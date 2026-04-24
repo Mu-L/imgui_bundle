@@ -750,7 +750,7 @@ As always, an online interactive manual is available
 
 ### More details about layouts handling with Hello ImGui:
 
-![Layout demo](https://traineq.org/ImGuiBundle/HelloImGuiLayout.gif)
+![Layout demo](https://imgui-bundle.pages.dev/resources/HelloImGuiLayout.gif)
 
 Each layout has a different spatial layout and can contain a different list of windows. Each layout also remembers the user modifications to this given layout, as well as the  list of opened windows.
 

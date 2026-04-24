@@ -27,7 +27,7 @@ Write Python apps that stay readable and understandable, and run with the same c
 
 Forget the usual labyrinth:
 
-<img src="https://traineq.org/ImGuiBundle/i_just_want_python.jpg" height="180">
+<img src="https://imgui-bundle.pages.dev/resources/i_just_want_python.jpg" height="180">
 
 Thanks to the pyodide version of Dear ImGui Bundle, you can write apps for your browser using
 almost *only python*. **No client/server, no javascript, no fuss.**

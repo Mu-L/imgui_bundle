@@ -61,6 +61,6 @@ Call `HelloImGui::SetAssetsFolder()` at startup. Or specify its location in CMak
 
 **Where to find the default assets**
 
-You can [download the default assets as a zip file](https://traineq.org/ImGuiBundle/assets.zip).
+You can [download the default assets as a zip file](https://imgui-bundle.pages.dev/resources/assets.zip).
 
 Look at the folder [imgui_bundle/bindings/imgui_bundle/assets](https://github.com/pthom/imgui_bundle/tree/main/bindings/imgui_bundle/assets) to see its content.

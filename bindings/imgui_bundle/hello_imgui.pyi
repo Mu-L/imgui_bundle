@@ -2062,7 +2062,7 @@ def append_callback(
 # HelloImGui will then provide a "View" menu with options to show/hide the dockable windows,
 # restore the default layout, switch between layouts, etc.
 #
-#![demo docking](https://traineq.org/ImGuiBundle/HelloImGuiLayout.gif)
+#![demo docking](https://imgui-bundle.pages.dev/resources/HelloImGuiLayout.gif)
 #
 # * Source for this example: https://github.com/pthom/hello_imgui/tree/master/src/hello_imgui_demos/hello_imgui_demodocking
 # * [Video explanation on YouTube](https://www.youtube.com/watch?v=XKxmz__F4ow) (5 minutes)

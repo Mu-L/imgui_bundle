@@ -83,3 +83,6 @@
 	path = external/imgui_microtex/MicroTeX
 	url = https://github.com/pthom/MicroTeX.git
 	branch = imgui_bundle
+[submodule "docs/submodule_website_resources"]
+	path = docs/submodule_website_resources
+	url = https://github.com/pthom/imgui_bundle_website_resources.git

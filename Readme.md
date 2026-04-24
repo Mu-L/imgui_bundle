@@ -16,7 +16,7 @@ Dear ImGui Bundle is a batteries-included collection of libraries around [Dear I
 
 **See it in action:** [launch the Interactive Explorer in your browser](https://imgui-bundle.pages.dev/explorer/)
 
-[![Dear ImGui Bundle Explorer](https://traineq.org/ImGuiBundle/bundle_explorer_vid.gif)](https://imgui-bundle.pages.dev/explorer/)
+[![Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/resources/bundle_explorer_vid.gif)](https://imgui-bundle.pages.dev/explorer/)
 
 ## Key features
 
