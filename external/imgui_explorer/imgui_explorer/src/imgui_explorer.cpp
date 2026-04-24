@@ -240,7 +240,7 @@ namespace
             {
                 ImGui::Text("C++ & Python code: ");
                 ImGui::SetCursorPosX(ImGui::GetCursorPosX() - ImGui::GetStyle().ItemSpacing.x);
-                RenderLink("Online Explorer", "https://traineq.org/imgui_bundle_explorer/");
+                RenderLink("Online Explorer", "https://imgui-bundle.pages.dev/explorer/");
             }
             else
             {
@@ -315,7 +315,7 @@ namespace
                 Dear ImGui Explorer is developed as a part of [Dear imGui Bundle](https://pthom.github.io/imgui_bundle/).
                 See [Source code](https://github.com/pthom/imgui_bundle/tree/main/external/imgui_explorer/imgui_explorer)
 
-                Also see: [Dear ImGui Bundle Explorer](https://traineq.org/imgui_bundle_explorer)
+                Also see: [Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/)
              )");
 
             ImGui::EndChild();

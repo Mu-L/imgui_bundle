@@ -4,8 +4,8 @@
 
 The manuals and demos below are using Dear ImGui Bundle itself!
 
-- [Dear ImGui Bundle Explorer](https://traineq.org/imgui_bundle_explorer): interactive reference manual - browse demos, see the code, try the widgets
-- [Online Python Playground](https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/): live Python sandbox with ready-to-run demos - edit code, see results instantly
+- [Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/): interactive reference manual - browse demos, see the code, try the widgets
+- [Online Python Playground](https://imgui-bundle.pages.dev/playground/): live Python sandbox with ready-to-run demos - edit code, see results instantly
 - [Dear ImGui Explorer](https://pthom.github.io/imgui_explorer/): interactive manual for Dear ImGui, ImPlot, ImPlot3D
 
 ## Community

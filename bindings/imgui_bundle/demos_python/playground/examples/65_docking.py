@@ -19,7 +19,7 @@ Windows can be dragged, tabbed, and rearranged by the user.
 
 **Links:**
 - [Docking documentation](https://pthom.github.io/imgui_bundle/core-libs/hello-imgui-immapp/)
-- [Full docking demo in the Explorer](https://traineq.org/imgui_bundle_explorer/)
+- [Full docking demo in the Explorer](https://imgui-bundle.pages.dev/explorer/)
 """
 from imgui_bundle import imgui, immapp, hello_imgui
 from typing import List

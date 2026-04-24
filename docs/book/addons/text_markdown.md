@@ -173,7 +173,7 @@ Pyodide wheels do not include the math fonts required for rendering LaTeX (to sa
 
 ### Full Demo
 
-[Try online](https://traineq.org/imgui_bundle_explorer/demo_imgui_md.html) | [Python](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demo_imgui_md.py) | [C++](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demo_imgui_md.cpp)
+[Try online](https://imgui-bundle.pages.dev/explorer/demo_imgui_md.html) | [Python](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demo_imgui_md.py) | [C++](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demo_imgui_md.cpp)
 
 ### Documented APIs
 
@@ -216,7 +216,7 @@ imgui.pop_font()
 
 ### Full Demo
 
-[Try online](https://traineq.org/imgui_bundle_explorer/demo_text_edit.html) | [Python](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demo_text_edit.py) | [C++](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demo_text_edit.cpp)
+[Try online](https://imgui-bundle.pages.dev/explorer/demo_text_edit.html) | [Python](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demo_text_edit.py) | [C++](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demo_text_edit.cpp)
 
 ### Documented APIs
 

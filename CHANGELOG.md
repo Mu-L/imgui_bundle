@@ -205,7 +205,7 @@ Based on ImGui v1.92.6 & hello_imgui v1.92.6.
 
 The interactive manual has been renamed to **Dear ImGui Bundle Explorer** and significantly enhanced:
 - New intro tab with a carousel of 7 interactive slides showcasing the ecosystem
-- Deployed at [traineq.org/imgui_bundle_explorer](https://traineq.org/imgui_bundle_explorer)
+- Deployed at [imgui-bundle.pages.dev/explorer/](https://imgui-bundle.pages.dev/explorer/)
 
 ## Dear ImGui Explorer
 
@@ -570,7 +570,7 @@ See changes in [Hello ImGui v1.5.0-rc1](https://github.com/pthom/hello_imgui/rel
 # v1.3.0
 
 ### New libraries
-* Added [NanoVG](https://github.com/memononen/nanovg): see [python bindings](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/nanovg.pyi), code of [python demos](https://github.com/pthom/imgui_bundle/tree/main/bindings/imgui_bundle/demos_python/demos_nanovg), code of [C++ demos](https://github.com/pthom/imgui_bundle/tree/main/bindings/imgui_bundle/demos_cpp/demos_nanovg), online [full demo](https://traineq.org/imgui_bundle_explorer/demo_nanovg_full.html), online [simple demo](https://traineq.org/imgui_bundle_explorer/demo_nanovg_heart.html), and [API for integration with ImGui](https://github.com/pthom/imgui_bundle/blob/main/external/nanovg/nvg_imgui/nvg_imgui.h). Works on Linux, Windows, macOS, emscripten, iOS and Android (OpenGL only).
+* Added [NanoVG](https://github.com/memononen/nanovg): see [python bindings](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/nanovg.pyi), code of [python demos](https://github.com/pthom/imgui_bundle/tree/main/bindings/imgui_bundle/demos_python/demos_nanovg), code of [C++ demos](https://github.com/pthom/imgui_bundle/tree/main/bindings/imgui_bundle/demos_cpp/demos_nanovg), online [full demo](https://imgui-bundle.pages.dev/explorer/demo_nanovg_full.html), online [simple demo](https://imgui-bundle.pages.dev/explorer/demo_nanovg_heart.html), and [API for integration with ImGui](https://github.com/pthom/imgui_bundle/blob/main/external/nanovg/nvg_imgui/nvg_imgui.h). Works on Linux, Windows, macOS, emscripten, iOS and Android (OpenGL only).
 
 ### Bundle
 * Update imgui to v1.90.1-docking
@@ -581,7 +581,7 @@ See changes in [Hello ImGui v1.5.0-rc1](https://github.com/pthom/hello_imgui/rel
 * Fix an issue under Ubuntu where cibuildwheel binary wheels did not work (see [#170](https://github.com/pthom/imgui_bundle/issues/170))
 
 ### Hello ImGui
-* Added EdgeToolbars: see [definition](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui/runner_callbacks.h#L72-L102), [callbacks](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui/runner_callbacks.h#L140-L147), [example usage](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui_demos/hello_imgui_demodocking/hello_imgui_demodocking.main.cpp#L694-L714), and [demo](https://traineq.org/imgui_bundle_explorer/demo_docking.html)
+* Added EdgeToolbars: see [definition](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui/runner_callbacks.h#L72-L102), [callbacks](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui/runner_callbacks.h#L140-L147), [example usage](https://github.com/pthom/hello_imgui/blob/3a279ce7459b04a4c2e7460b844cbf354833964e/src/hello_imgui_demos/hello_imgui_demodocking/hello_imgui_demodocking.main.cpp#L694-L714), and [demo](https://imgui-bundle.pages.dev/explorer/demo_docking.html)
 * Callbacks: add [EnqueuePostInit, EnqueueBeforeExit, PostInit_AddPlatformBackendCallbacks](https://pthom.github.io/hello_imgui/book/doc_params.html#runnercallbacks)
 * Add [renderer_backend_options](https://pthom.github.io/hello_imgui/book/doc_params.html#renderer-backend-options)
 * Add support for Extended Dynamic Range (EDR) on macOS : see [PR](https://github.com/pthom/hello_imgui/pull/89). Added [demo / EDR](https://github.com/pthom/hello_imgui/tree/master/src/hello_imgui_demos/hello_edr) - Only works with Metal
@@ -600,7 +600,7 @@ See changes in [Hello ImGui v1.5.0-rc1](https://github.com/pthom/hello_imgui/rel
 * Added nice [documentation pages](https://pthom.github.io/hello_imgui)
 * Uses [Freetype for font rendering](https://github.com/pthom/hello_imgui/blob/549c205dd3ca98f18fcf541a2ebbfc5abdd10410/CMakeLists.txt#L96-L106)
 * Improved [Font Loading utility](https://github.com/pthom/hello_imgui/blob/549c205dd3ca98f18fcf541a2ebbfc5abdd10410/src/hello_imgui/hello_imgui_font.h#L13-L62)
-* Added support for Colored font and Emoji fonts ([Demo](https://traineq.org/imgui_bundle_explorer/demo_docking.html))
+* Added support for Colored font and Emoji fonts ([Demo](https://imgui-bundle.pages.dev/explorer/demo_docking.html))
 * Can [fully customize the menu bar](https://pthom.github.io/hello_imgui/book/doc_api.html#customize-hello-imgui-menus)
 
 ### Backends
@@ -623,7 +623,7 @@ See changes in [Hello ImGui v1.5.0-rc1](https://github.com/pthom/hello_imgui/rel
 ### Python
 * Can plot Matplotlib figures in Python: see [demo](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demos_immapp/demo_matplotlib.py) and [imgui_fig](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/imgui_fig.py)
 * Added [imgui_ctx](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/imgui_ctx.py): python context manager for imgui.begin / imgui.end, etc (lots)
-* Show python & C++ code in the ImGui Demo window (see "Dear ImGui" tab in the [interactive explorer](https://traineq.org/imgui_bundle_explorer))
+* Show python & C++ code in the ImGui Demo window (see "Dear ImGui" tab in the [interactive explorer](https://imgui-bundle.pages.dev/explorer/))
 * Added bindings for imgui [AddPolyline / AddConvexPolyFilled](https://github.com/pthom/imgui_bundle/blob/7c7f31944edd3cf92e040226a73eda7b6e4e5c5f/bindings/imgui_bundle/imgui/__init__.pyi#L9283C23-L9290)
 * Added bindings for imgui [IniFileName and LogFilename](https://github.com/pthom/imgui_bundle/blob/7c7f31944edd3cf92e040226a73eda7b6e4e5c5f/bindings/imgui_bundle/imgui/__init__.pyi#L7943-L7946), WindowName
 * Added bindings for [ImGuiInputTextCallback](https://github.com/pthom/imgui_bundle/blob/7c7f31944edd3cf92e040226a73eda7b6e4e5c5f/bindings/imgui_bundle/imgui/__init__.pyi#L10453-L10463) and ImGuiSizeCallback (also see [this](https://github.com/pthom/imgui_bundle/blob/7c7f31944edd3cf92e040226a73eda7b6e4e5c5f/bindings/imgui_bundle/imgui/__init__.pyi#L255C1-L256))
@@ -689,7 +689,7 @@ ImGui Test Engine is a Tests & Automation Engine for Dear ImGui.
 * Can be used with python, and C++ (all platforms, incl emscripten). See [python bindings](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/imgui/test_engine.pyi) declarations (stubs).
 * Enabled by default inside ImGui Bundle. Needs to be enabled manually when using Hello ImGui.
 * Lots of work on making ImGui Test Engine's coroutines (thread based) compatible with Python and emscripten
-* ImGui Test Engine is now used to run interactive automations in the [interactive manual](https://traineq.org/imgui_bundle_explorer) (click on the "Show me" buttons)
+* ImGui Test Engine is now used to run interactive automations in the [interactive manual](https://imgui-bundle.pages.dev/explorer/) (click on the "Show me" buttons)
 * Added specific demo and doc
 
 _Note: See [Dear ImGui Test Engine License](https://github.com/ocornut/imgui_test_engine/blob/main/imgui_test_engine/LICENSE.txt). (TL;DR: free for individuals, educational, open-source and small businesses uses. Paid for larger businesses)_
@@ -746,7 +746,7 @@ Submodules changes:
 * ImPlot bindings: Add support for heatmaps
 
 As always, an online interactive manual is available
-[<img src="https://raw.githubusercontent.com/pthom/imgui_bundle/doc/bindings/imgui_bundle/doc/doc_images/badge_interactive_explorer.png" height=20>](https://traineq.org/imgui_bundle_explorer)&nbsp;&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/pthom/imgui_bundle/doc/bindings/imgui_bundle/doc/doc_images/badge_view_docs.png" height=20>](https://pthom.github.io/imgui_bundle)
+[<img src="https://raw.githubusercontent.com/pthom/imgui_bundle/doc/bindings/imgui_bundle/doc/doc_images/badge_interactive_explorer.png" height=20>](https://imgui-bundle.pages.dev/explorer/)&nbsp;&nbsp;&nbsp;[<img src="https://raw.githubusercontent.com/pthom/imgui_bundle/doc/bindings/imgui_bundle/doc/doc_images/badge_view_docs.png" height=20>](https://pthom.github.io/imgui_bundle)
 
 ### More details about layouts handling with Hello ImGui:
 
@@ -754,7 +754,7 @@ As always, an online interactive manual is available
 
 Each layout has a different spatial layout and can contain a different list of windows. Each layout also remembers the user modifications to this given layout, as well as the  list of opened windows.
 
-See [this online emscripten demo](https://traineq.org/imgui_bundle_explorer/demo_docking.html)  of the docking and layout, the  [C++ demo code](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demos_immapp/demo_docking.cpp), and [python demo code](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demos_immapp/demo_docking.py)
+See [this online emscripten demo](https://imgui-bundle.pages.dev/explorer/demo_docking.html)  of the docking and layout, the  [C++ demo code](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_cpp/demos_immapp/demo_docking.cpp), and [python demo code](https://github.com/pthom/imgui_bundle/blob/main/bindings/imgui_bundle/demos_python/demos_immapp/demo_docking.py)
 
 For more explanations on how to handle complex layouts, see this [video explanation on YouTube](https://www.youtube.com/watch?v=XKxmz__F4ow) (5 minutes)
 

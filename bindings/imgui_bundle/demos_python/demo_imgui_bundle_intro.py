@@ -1140,7 +1140,7 @@ def _web_deploy_slide_gui(content_size: ImVec2):
     if imgui.is_item_hovered():
         imgui.set_mouse_cursor(imgui.MouseCursor_.hand)
     if imgui.is_item_clicked():
-        webbrowser.open("https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/")
+        webbrowser.open("https://imgui-bundle.pages.dev/playground/")
 
 
 # ============================================================================
@@ -1481,7 +1481,7 @@ def _render_links_row():
     links = [
         ("GitHub", "https://github.com/pthom/imgui_bundle", "Source code, issues, discussions"),
         ("Documentation", "https://pthom.github.io/imgui_bundle/", "Full documentation for Dear ImGui Bundle"),
-        ("Python Playground", "https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/", "Live Python sandbox with demos - edit and run in your browser"),
+        ("Python Playground", "https://imgui-bundle.pages.dev/playground/", "Live Python sandbox with demos - edit and run in your browser"),
         ("Discord", "https://discord.gg/xkzpKMeYN3", "Join the community for questions, showcase, and discussion (new!)"),
     ]
     for i, (label, url, tooltip) in enumerate(links):
@@ -1532,9 +1532,9 @@ def _render_more_info():
 
     imgui_md.render_unindented("""
     **Links:**
-    - [Interactive Explorer](https://traineq.org/imgui_bundle_explorer/): Interactive reference manual - browse demos, see the code, try the widgets. *(You are here!)*
+    - [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive reference manual - browse demos, see the code, try the widgets. *(You are here!)*
     - [Documentation](https://pthom.github.io/imgui_bundle/): Full documentation
-    - [Python Playground](https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/): Live Python sandbox with ready-to-run demos - edit code, see results instantly
+    - [Python Playground](https://imgui-bundle.pages.dev/playground/): Live Python sandbox with ready-to-run demos - edit code, see results instantly
     - [GitHub](https://github.com/pthom/imgui_bundle): Source code, issues, discussions
     - [Discord](https://discord.gg/xkzpKMeYN3): Community (new!)
     - [DeepWiki](https://deepwiki.com/pthom/imgui_bundle): AI-powered Q&A about the framework

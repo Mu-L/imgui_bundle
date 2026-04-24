@@ -1,7 +1,7 @@
 """ Dear ImGui Bundle
 ================================
 
-<img src="https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/images/logo_imgui_bundle.png" height="60">
+<img src="https://imgui-bundle.pages.dev/playground/images/logo_imgui_bundle.png" height="60">
 
 *Interactive Python & C++ apps for desktop, mobile, and web - powered by Dear ImGui.*
 
@@ -17,7 +17,7 @@ Stop fighting GUI frameworks. Start building.
 Write Python apps that stay readable and understandable, and run with the same code on web, desktop, and mobile.
 
 **See also:**
-* [Interactive Explorer](https://traineq.org/imgui_bundle_explorer/): Interactive manual - all libraries, live demos (even more than here!), browsable source
+* [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive manual - all libraries, live demos (even more than here!), browsable source
 * [Documentation](https://pthom.github.io/imgui_bundle/): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
 * [DeepWiki](https://deepwiki.com/pthom/imgui_bundle): AI-powered Q&A about the framework
 * [Discord](https://discord.gg/xkzpKMeYN3): join the community (new!)

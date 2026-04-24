@@ -100,7 +100,7 @@ Each library is:
 - Python → Pyodide → WebAssembly (!!)
 - Full Python runtime in browser
 - Native-speed rendering via WebGL
-- Check [ImGui Bundle Explorer](https://traineq.org/imgui_bundle_explorer)
+- Check [ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/)
 
 ## Is It Interesting for Developers?
 

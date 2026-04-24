@@ -45,7 +45,7 @@ Terms used throughout the developer docs:
 | **srcML**           | XML representation of C++ source code; used internally by litgen to parse headers                                                                                            |
 | **`.pyi` stubs**    | Python type stub files providing IDE autocompletion and type checking for the native extension                                                                               |
 | **pybind**          | Legacy naming seen in generated filenames (`pybind_*.cpp`). These files actually use nanobind, not pybind11 — the name is historical                                         |
-| **ibex**            | Abbreviation fo [Dear ImGui Bundle Explorer](https://traineq.org/imgui_bundle_explorer) — the full demo app showcasing all libraries, used in just recipes (`just ibex_...`) |
+| **ibex**            | Abbreviation fo [Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/) — the full demo app showcasing all libraries, used in just recipes (`just ibex_...`) |
 | **imex**            | Abbreviation for [Dear ImGui Explorer](https://pthom.github.io/imgui_explorer/) - source code in external/imgui_explorer. Used just recipes `just imex_...`                  |
 | **`_imgui_bundle`** | The single compiled native extension (`.so`/`.pyd`) containing all 23+ C++ libraries                                                                                         |
 | **justfile**        | Task runner config at repo root; provides shortcuts like `just libs_bindings`, `just test_pytest`, etc.                                                                      |

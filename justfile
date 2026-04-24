@@ -92,7 +92,7 @@ ibex_deploy: ibex_build
     cd build_ibex_ems && \
     rsync -vaz bin/ pascal@traineq.org:HTML/imgui_bundle_explorer/
     scp build_ibex_ems/bin/demo_imgui_bundle.html pascal@traineq.org:HTML/imgui_bundle_explorer/index.html
-    echo "Deployed to https://traineq.org/imgui_bundle_explorer/"
+    echo "Deployed to https://imgui-bundle.pages.dev/explorer/"
 
 # Serve emscripten with CORS
 [group('ibex')]

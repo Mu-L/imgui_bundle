@@ -24,11 +24,11 @@ site:
   nav:
     - title: Ahh
     - title: Interactive Manual
-      url: https://traineq.org/imgui_bundle_explorer
+      url: https://imgui-bundle.pages.dev/explorer/
     - title: GitHub
       url: https://github.com/pthom/imgui_bundle
     - title: Online Python Playground
-      url: https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/
+      url: https://imgui-bundle.pages.dev/playground/
     - title: PyPI
       url: https://pypi.org/project/imgui-bundle/
     - title: Conda

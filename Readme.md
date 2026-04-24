@@ -1,4 +1,4 @@
-<a href="https://traineq.org/imgui_bundle_explorer">
+<a href="https://imgui-bundle.pages.dev/explorer/">
 <img src="https://raw.githubusercontent.com/pthom/imgui_bundle/refs/heads/main/bindings/imgui_bundle/demos_assets/images/badge_interactive_explorer.png" alt="interactive explorer" height="25"/>
 </a>
 &nbsp;
@@ -14,9 +14,9 @@
 
 Dear ImGui Bundle is a batteries-included collection of libraries around [Dear ImGui](https://github.com/ocornut/imgui), for both C++ and Python. All the pieces are pre-wired to play well together: plotting, Markdown, node editors, image inspection, and more - ready to drop into your app.
 
-**See it in action:** [launch the Interactive Explorer in your browser](https://traineq.org/imgui_bundle_explorer/)
+**See it in action:** [launch the Interactive Explorer in your browser](https://imgui-bundle.pages.dev/explorer/)
 
-[![Dear ImGui Bundle Explorer](https://traineq.org/ImGuiBundle/bundle_explorer_vid.gif)](https://traineq.org/imgui_bundle_explorer/)
+[![Dear ImGui Bundle Explorer](https://traineq.org/ImGuiBundle/bundle_explorer_vid.gif)](https://imgui-bundle.pages.dev/explorer/)
 
 ## Key features
 
@@ -41,13 +41,13 @@ Dear ImGui Bundle is a batteries-included collection of libraries around [Dear I
 ### Online playground
 Live Python sandbox with ready-to-run demos - edit code, see results instantly. No installation needed.
 
-Open the **[playground](https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/)**.
+Open the **[playground](https://imgui-bundle.pages.dev/playground/)**.
 
 ### Interactive explorer
 
 Interactive reference manual - browse demos, see the code, try the widgets. Showcases all 23 libraries with browsable C++ and Python source.
 
-**[Launch the Interactive Explorer](https://traineq.org/imgui_bundle_explorer)**
+**[Launch the Interactive Explorer](https://imgui-bundle.pages.dev/explorer/)**
 
 ### Community
 

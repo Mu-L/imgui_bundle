@@ -27,7 +27,7 @@ Dear ImGui Bundle is a collection of libraries around [Dear ImGui](https://githu
 ## Links:
 
 * [Documentation site](https://pthom.github.io/imgui_bundle/): Full documentation for Dear ImGui Bundle.
-* [Dear ImGui Bundle Explorer](https://traineq.org/imgui_bundle_explorer): interactive reference manual - browse demos, see the code, try the widgets. All 23 libraries demonstrated with browsable C++ and Python source.
-* [Online Python Playground](https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/): live Python sandbox with ready-to-run demos - edit code, see results instantly. No installation needed.
+* [Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/): interactive reference manual - browse demos, see the code, try the widgets. All 23 libraries demonstrated with browsable C++ and Python source.
+* [Online Python Playground](https://imgui-bundle.pages.dev/playground/): live Python sandbox with ready-to-run demos - edit code, see results instantly. No installation needed.
 * [Discord](https://discord.gg/xkzpKMeYN3): join the community for questions, showcase, and discussion
 * [GitHub](https://github.com/pthom/imgui_bundle): source code, issues, discussions

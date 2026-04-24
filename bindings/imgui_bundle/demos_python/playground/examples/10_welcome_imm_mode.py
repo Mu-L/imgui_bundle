@@ -18,7 +18,7 @@ notice how each widget is just one line, and state is just plain Python variable
 **Links:**
 - [What is Dear ImGui Bundle?](https://pthom.github.io/imgui_bundle/intro/what-is-imgui-bundle/)
 - [Immediate Mode Explained](https://pthom.github.io/imgui_bundle/intro/imm-gui/)
-- [Dear ImGui in the Explorer](https://traineq.org/imgui_bundle_explorer/?lib=imgui)
+- [Dear ImGui Explorer](https://pthom.github.io/imgui_explorer)
 """
 from imgui_bundle import imgui, immapp, hello_imgui
 

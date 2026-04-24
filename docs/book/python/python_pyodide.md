@@ -180,7 +180,7 @@ asyncio.create_task(main())
 
 ## Online Python playground
 
-With [this online playground](https://traineq.org/imgui_bundle_online/projects/imgui_bundle_playground/), you can edit and run imgui apps in the browser, without installing anything.
+With [this online playground](https://imgui-bundle.pages.dev/playground/), you can edit and run imgui apps in the browser, without installing anything.
 
 ```{figure} ../images/pyodide_playground.jpg
 :alt: A browser window showing the playground: to the right an interactive demo of the butterfly
