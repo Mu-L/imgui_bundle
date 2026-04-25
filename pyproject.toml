@@ -158,7 +158,7 @@ logging.level = "INFO"
 profile = "black"
 
 [tool.ruff]
-extend-exclude = ["*.ipynb"]
+include = ["bindings/imgui_bundle/**/*.py", "bindings/imgui_bundle/**/*.pyi"]
 
 [tool.mypy]
 packages = ["imgui_bundle"]

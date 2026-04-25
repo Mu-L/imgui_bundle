@@ -11,11 +11,9 @@ This module provides convenient functions for running ImGui apps in Jupyter note
 import asyncio
 from typing import Optional
 
-# from imgui_bundle._imgui_bundle.immapp_cpp import AddOnsParams  # type: ignore
-from imgui_bundle._imgui_bundle.hello_imgui import (  # type: ignore
-    RunnerParams,
-    SimpleRunnerParams,
-)
+# from imgui_bundle.immapp import AddOnsParams
+from imgui_bundle.hello_imgui import RunnerParams, SimpleRunnerParams
+
 
 
 # Global state for tracking the current async GUI task
