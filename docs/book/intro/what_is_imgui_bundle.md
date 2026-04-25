@@ -45,7 +45,7 @@ Being able to work with readable code is getting more and more important as LLMs
 
 **Easy to understand for AI**
 
-And the same clarity that helps humans also helps AI: with no implicit state to get wrong, LLMs can read and generate ImGui code reliably. The [full PDF manuals](https://imgui-bundle.pages.dev/assets/book.pdf) give an AI assistant all the context it needs.
+And the same clarity that helps humans also helps AI: with no implicit state to get wrong, LLMs can read and generate ImGui code reliably. The [full PDF manuals](https://imgui-bundle.pages.dev/doc/assets/imgui_bundle_book.pdf) give an AI assistant all the context it needs.
 
 :::{tip}
 **Try it in your browser — no install needed:** [Open the Online Python Playground](https://imgui-bundle.pages.dev/playground/)

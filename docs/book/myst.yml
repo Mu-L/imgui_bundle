@@ -9,7 +9,7 @@ project:
 
   exports:
     - format: pdf
-      output: _build/exports/book.pdf
+      output: _build/exports/imgui_bundle_book.pdf
       toc: _toc.yml
       template: lapreprint-typst
 

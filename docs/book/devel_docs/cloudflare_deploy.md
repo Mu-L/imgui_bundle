@@ -3,14 +3,14 @@
 The project publishes several static subparts to a single Cloudflare Pages project
 named `imgui-bundle`, reachable at <https://imgui-bundle.pages.dev/>:
 
-| Path                | Contents                                                          |
-|---------------------|-------------------------------------------------------------------|
-| `/`                 | Jupyter-book documentation (this book); its `index.html` is the site landing page |
-| `/playground/`      | Pyodide playground (Python examples in the browser)               |
-| `/min_pyodide_app/` | Minimal Pyodide template (single-file demo)                       |
-| `/explorer/`        | Dear ImGui Bundle Explorer (Emscripten build with OpenCV)         |
-| `/local_wheels/`    | Shared `imgui_bundle-*.whl`, loaded by the pyodide subparts       |
-| `/assets/book.pdf`  | PDF export of the documentation                                   |
+| Path                               | Contents                                                    |
+|------------------------------------|-------------------------------------------------------------|
+| `doc/`                             | Jupyter-book documentation (this book);                     |
+| `/playground/`                     | Pyodide playground (Python examples in the browser)         |
+| `/min_pyodide_app/`                | Minimal Pyodide template (single-file demo)                 |
+| `/explorer/`                       | Dear ImGui Bundle Explorer (Emscripten build with OpenCV)   |
+| `/local_wheels/`                   | Shared `imgui_bundle-*.whl`, loaded by the pyodide subparts |
+| `doc/assets/imgui_bundle_book.pdf` | PDF export of the documentation                             |
 
 A `_headers` file (`pyodide_projects/cf_headers`) scopes
 `Cross-Origin-Opener-Policy` / `Cross-Origin-Embedder-Policy` to `/explorer/*`

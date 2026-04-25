@@ -103,7 +103,7 @@ ImGui Bundle is based on Dear ImGui, and can also use Hello ImGui as a base, in 
 Please do read to the following documentation for a comprehensive understanding of the libraries:
 
 **Dear ImGui Bundle, full doc (PDF):**
-https://imgui-bundle.pages.dev/assets/book.pdf
+https://imgui-bundle.pages.dev/doc/assets/imgui_bundle_book.pdf
 
 **Hello ImGui**
 https://pthom.github.io/hello_imgui/book/intro.html

@@ -166,11 +166,11 @@ doc_build_static:
 doc_build_pdf:
     cd docs/book && jupyter-book build --pdf
 
-# Build HTML + PDF for Cloudflare deploy (PDF is exposed at /assets/book.pdf)
+# Build HTML + PDF for Cloudflare deploy (PDF is exposed at assets/imgui_bundle_book.pdf)
 [group('docs')]
 doc_build_cf: doc_build_static doc_build_pdf
     mkdir -p docs/book/_build/html/assets
-    cp docs/book/_build/exports/book.pdf docs/book/_build/html/assets/
+    cp docs/book/_build/exports/imgui_bundle_book.pdf docs/book/_build/html/assets/imgui_bundle_book.pdf
 
 
 # ==============================================================
