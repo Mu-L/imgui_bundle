@@ -247,9 +247,9 @@ Added [ImAnim](https://github.com/pthom/im_anim), a tweening and animation libra
 - Update imgui_md: render tables using ImGui tables (resizable columns), delay before showing link hrefs
 
 ## Python: Async run and notebook support
-- Added `hello_imgui.run_async()` / `immapp.run_async()` for async/await support (with maximal performance). See [doc for async] (https://imgui-bundle.pages.dev/python/python-async/)
+- Added `hello_imgui.run_async()` / `immapp.run_async()` for async/await support (with maximal performance). See [doc for async] (https://imgui-bundle.pages.dev/doc/python/python-async/)
 
-- Added `immapp.nb` module for non-blocking Jupyter notebook execution (`nb.start()`, `nb.stop()`, `nb.is_running()`). See [doc for notebook](https://imgui-bundle.pages.dev/python/notebook-runners/)
+- Added `immapp.nb` module for non-blocking Jupyter notebook execution (`nb.start()`, `nb.stop()`, `nb.is_running()`). See [doc for notebook](https://imgui-bundle.pages.dev/doc/python/notebook-runners/)
 - Added `hello_imgui.nb` convenience module
 
 ## Pyodide (web) support
@@ -280,7 +280,7 @@ Added [ImAnim](https://github.com/pthom/im_anim), a tweening and animation libra
 - Fix: shell injection in BrowseToUrl (replaced `system()` with `fork+execlp`)
 
 ## Documentation
-- Complete documentation overhaul using Jupyter Book, available as [PDF](https://imgui-bundle.pages.dev/assets/book.pdf)
+- Complete documentation overhaul using Jupyter Book, available as [PDF](https://imgui-bundle.pages.dev/doc/assets/book.pdf)
 - Added developer documentation (building, bindings, repo structure)
 
 # v1.92.5

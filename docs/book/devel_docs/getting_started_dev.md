@@ -111,10 +111,11 @@ See [testing.md](testing.md) for details on GUI tests and CI.
 ## Build the docs
 
 ```bash
-just doc_serve_interactive    # Live-reload dev server
-# or
-just doc_build_static         # Static HTML build
-just doc_serve_static         # Serve the static build on port 7005
+just doc_serve                # Live-reload dev server (recommended for editing)
+# or, for the full Cloudflare-deploy build (HTML anchored under /doc/, plus PDF):
+just doc_build_cf
+# Then preview under the right /doc/ prefix:
+just cf_stage && just cf_serve_local   # http://localhost:8765/doc/
 ```
 
 ## Useful justfile commands

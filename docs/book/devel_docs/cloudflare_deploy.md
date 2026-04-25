@@ -102,7 +102,7 @@ Required GitHub Actions secrets: `CLOUDFLARE_API_TOKEN`,
 
 ## Links on imgui-bundle pages at claoudflare
 
-* [Doc & Root](https://imgui-bundle.pages.dev)
+* [Doc & Root](https://imgui-bundle.pages.dev/doc)
 * [Python Playground](https://imgui-bundle.pages.dev/playground)
 * [Minimal Pyodide Template](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.html)
 * [Minimal Pyodide Template - Source](https://imgui-bundle.pages.dev/min_pyodide_app/demo_heart.source.txt)

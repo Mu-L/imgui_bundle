@@ -1676,7 +1676,7 @@ void RenderMoreInfo()
 Dear ImGui Bundle is a batteries-included framework built on Dear ImGui. It bundles 20+ libraries - plotting, markdown, node editors, 3D gizmos, and more - and works in C++ and Python, on desktop, mobile, and web.
 )");
 
-    ImGuiMd::RenderUnindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://imgui-bundle.pages.dev/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.");
+    ImGuiMd::RenderUnindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://imgui-bundle.pages.dev/doc/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.");
     ImGui::SameLine();
     ImGui::TextDisabled("Start your first app in 2\xe2\x80\x93""3 lines of code.");
     if (ImGui::IsItemHovered(ImGuiHoveredFlags_DelayNormal))

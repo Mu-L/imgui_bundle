@@ -142,33 +142,16 @@ cibuild_docker_manylinux:
 # Documentation
 # ==============================================================
 
-# Build the doc in interactive mode (for dev)
+# Build the doc in interactive mode (for dev — serves at port-root, BASE_URL not needed)
 [group('docs')]
-doc_serve_interactive:
+doc_serve:
     cd docs/book && jupyter-book start
 
-# Serve the static built doc
+# Build HTML + PDF for Cloudflare deploy
 [group('docs')]
-doc_serve_static:
-    cd docs/book/_build/html && python -m http.server 7005
-
-# Build the doc in static html
-[group('docs')]
-doc_build_static:
-    cd docs/book && jupyter-book build --html
-    echo "Doc built in docs/book/_build/html"
-    echo "You can serve it with:"
-    echo "\n  cd docs/book/_build/html && python -m http.server 7005"
-    echo "\nOr just run:\n\n  just doc_serve_static\n"
-
-# Build bundle doc in pdf
-[group('docs')]
-doc_build_pdf:
+doc_build_cf:
+    cd docs/book && BASE_URL=/doc jupyter-book build --html
     cd docs/book && jupyter-book build --pdf
-
-# Build HTML + PDF for Cloudflare deploy (PDF is exposed at assets/imgui_bundle_book.pdf)
-[group('docs')]
-doc_build_cf: doc_build_static doc_build_pdf
     mkdir -p docs/book/_build/html/assets
     cp docs/book/_build/exports/imgui_bundle_book.pdf docs/book/_build/html/assets/imgui_bundle_book.pdf
 
@@ -283,10 +266,11 @@ cf_stage:
     # them at the edge (application/octet-stream is not in CF's compressible
     # MIME list, and CF strips user-set Content-Encoding from _headers).
     #
-    # 5. Copy jupyter-book documentation to the staging ROOT (its index.html becomes the site landing page).
+    # 5. Copy jupyter-book documentation to the staging ROOT/doc
     # Run `just doc_build_cf` first.
     # ------------------------------------------------------------
-    rsync -a docs/book/_build/html/ {{_CF_STAGING}}/
+    rm -rf {{_CF_STAGING}}/doc
+    rsync -a docs/book/_build/html/ {{_CF_STAGING}}/doc/
     #
     # 6. Copy website_resources
     rm -rf {{_CF_STAGING}}/website_resources
@@ -311,7 +295,7 @@ cf_clean:
 # and Content-Encoding: gzip for the pre-gzipped .data files — mirrors the CF _headers rules).
 [group('cloudflare')]
 cf_serve_local:
-    cd {{_CF_STAGING}} && python ../../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/
+    cd {{_CF_STAGING}} && python ../ci_scripts/webserver_multithread_policy.py -p 8765 --coi-prefix=/explorer/
 
 # ==============================================================
 # Tests

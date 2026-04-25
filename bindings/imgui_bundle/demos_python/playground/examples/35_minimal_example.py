@@ -12,7 +12,7 @@ You can copy this HTML, save it as a `.html` file, and open it in any browser. E
 3. Runs the embedded Python code, which creates a full ImGui app with a canvas
 
 **Links:**
-- [Pyodide deployment docs](https://imgui-bundle.pages.dev/python/python-pyodide/)
+- [Pyodide deployment docs](https://imgui-bundle.pages.dev/doc/python/python-pyodide/)
 """
 from imgui_bundle import (
     imgui, immapp,

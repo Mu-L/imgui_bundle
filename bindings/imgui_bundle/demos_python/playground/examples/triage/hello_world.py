@@ -3,7 +3,7 @@
 Create an app in 3 lines of code, using [Dear ImGui](https://github.com/ocornut/imgui) and [Hello ImGui](https://pthom.github.io/hello_imgui).
 
 **Links:**
-- [Getting started](https://imgui-bundle.pages.dev/python/python-install/)
+- [Getting started](https://imgui-bundle.pages.dev/doc/python/python-install/)
 - [Hello ImGui documentation](https://pthom.github.io/hello_imgui)
 """
 from imgui_bundle import hello_imgui, imgui

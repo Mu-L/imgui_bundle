@@ -1508,7 +1508,7 @@ def _render_more_info():
     Dear ImGui Bundle is a batteries-included framework built on Dear ImGui. It bundles 20+ libraries - plotting, markdown, node editors, 3D gizmos, and more - and works in C++ and Python, on desktop, mobile, and web.
     """)
 
-    imgui_md.render_unindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://imgui-bundle.pages.dev/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.")
+    imgui_md.render_unindented("The immediate mode paradigm naturally leads to code that is concise and [easy to understand](https://imgui-bundle.pages.dev/doc/intro/what-is-imgui-bundle/#code-that-reads-like-a-book), both for humans and for AI tools.")
     imgui.same_line()
     imgui.text_disabled("Start your first app in 2–3 lines of code.")
     if imgui.is_item_hovered(imgui.HoveredFlags_.delay_normal):

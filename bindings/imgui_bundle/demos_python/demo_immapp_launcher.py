@@ -12,7 +12,7 @@ DOC = """
 
 This section presents various demo applications that illustrate how to use Dear ImGui Bundle for various use cases. Click on the "View Code" buttons to view the apps' code, and click on "Run" to run them. Scroll with the mouse wheel in the table below for more demos.
 
-> **Note:**  Hello ImGui and ImmApp handle window creation, rendering, and app lifecycle - see [Documentation](https://imgui-bundle.pages.dev/core-libs/hello-imgui-immapp/)
+> **Note:**  Hello ImGui and ImmApp handle window creation, rendering, and app lifecycle - see [Documentation](https://imgui-bundle.pages.dev/doc/core-libs/hello-imgui-immapp/)
 """
 
 
