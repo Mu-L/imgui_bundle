@@ -106,33 +106,47 @@ async def test_nb_stop():
 
 
 @pytest.mark.asyncio
-async def test_nb_auto_stop_existing():
+async def nb_auto_stop_existing():
     """Test that starting a new GUI auto-stops the existing one."""
-    gui1_active = {"value": True}
-    gui2_active = {"value": True}
+    sleep_after_start = 0.25  # time needed for the app to start and display its first frames
+
+    gui2_active = True
+    where_am_i  = ""
 
     def gui1():
-        if not gui1_active["value"]:
-            hello_imgui.get_runner_params().app_shall_exit = True
+        nonlocal where_am_i
+        where_am_i = "gui1"
+        imgui.text("GUI 1")
+        imgui.text(f"Counter: {imgui.get_frame_count()} fps:{imgui.get_io().framerate}")
 
     def gui2():
-        if not gui2_active["value"]:
+        nonlocal gui2_active
+        nonlocal where_am_i
+        where_am_i = "gui2"
+        imgui.text("GUI 2")
+        imgui.text(f"Counter: {imgui.get_frame_count()} fps:{imgui.get_io().framerate}")
+        if not gui2_active:
             hello_imgui.get_runner_params().app_shall_exit = True
 
     # Start first GUI
     immapp.nb.start(gui1, window_title="GUI 1")
     assert immapp.nb.is_running(), "GUI 1 should be running"
-    await asyncio.sleep(0.3)
+    await asyncio.sleep(sleep_after_start)  # The app takes a while to start
+    assert where_am_i == "gui1"
+    await asyncio.sleep(0.1)
 
     # Start second GUI - should auto-stop first
     immapp.nb.start(gui2, window_title="GUI 2")
-    await asyncio.sleep(0.3)
+    await asyncio.sleep(sleep_after_start)
+    assert where_am_i == "gui2"
+    await asyncio.sleep(0.1)
 
     assert immapp.nb.is_running(), "GUI 2 should be running"
 
     # Clean up
-    gui2_active["value"] = False
-    await asyncio.sleep(0.2)
+    gui2_active = False
+    await asyncio.sleep(0.1)
+    assert not immapp.nb.is_running(), "GUI 2 should be stopped"
 
 
 @pytest.mark.asyncio
