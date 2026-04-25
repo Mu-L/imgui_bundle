@@ -197,5 +197,58 @@ async def test_nb_variable_updates():
     assert data["text"] == "Iteration 5", "Text should be 'Iteration 5'"
 
 
+@pytest.mark.asyncio
+async def test_run_async_double_setup_does_not_tear_down_first():
+    """Regression test: a second concurrent run_async() must NOT corrupt the
+    first runner.
+
+    Bypasses nb.start() (which has its own auto-drain) to exercise the raw
+    run_async() path. A second run_async() launched while the first is alive
+    will hit `IM_ASSERT(...SetupFromXXX cannot be called while already
+    initialized...)` inside `setup_from_gui_function`, which throws a
+    RuntimeError. The bug: run_async()'s `finally: manual_render.tear_down()`
+    then runs and tears down the GLOBAL renderer — which still belongs to the
+    first task — causing a SIGSEGV on the first task's next render().
+
+    The fix: setup must live OUTSIDE the try/finally that owns tear_down,
+    so a setup that never took ownership cannot tear down state it doesn't
+    own.
+    """
+    gui1_frames = 0
+
+    def gui1():
+        nonlocal gui1_frames
+        gui1_frames += 1
+
+    def gui2():
+        pass  # never reached — setup will throw
+
+    # Start GUI 1 directly via run_async (bypass nb.start auto-stop)
+    task1 = asyncio.create_task(immapp.run_async(gui1, window_title="GUI1"))
+    await asyncio.sleep(0.5)  # let it set up and render a few frames
+    assert gui1_frames > 0, "GUI 1 should have rendered at least one frame"
+    frames_at_collision = gui1_frames
+
+    # Launch a second run_async while the first is still alive.
+    # It MUST raise RuntimeError on setup, and MUST NOT tear down GUI 1.
+    task2 = asyncio.create_task(immapp.run_async(gui2, window_title="GUI2"))
+    await asyncio.sleep(0.3)
+    assert task2.done(), "Task 2 should have failed quickly during setup"
+    exc = task2.exception()
+    assert isinstance(exc, RuntimeError), f"Expected RuntimeError, got {exc!r}"
+    assert "already initialized" in str(exc)
+
+    # GUI 1 must still be alive AND still rendering. Pre-fix this is where
+    # the process either segfaults or task1 silently dies because its renderer
+    # was torn down underneath it.
+    await asyncio.sleep(0.3)
+    assert not task1.done(), f"GUI 1 should still be running, got: {task1.exception() if task1.done() else 'done'}"
+    assert gui1_frames > frames_at_collision, "GUI 1 should keep rendering after the failed task 2"
+
+    # Clean shutdown of GUI 1
+    hello_imgui.get_runner_params().app_shall_exit = True
+    await task1
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

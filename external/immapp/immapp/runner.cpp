@@ -510,13 +510,14 @@ namespace ManualRender  // namespace ImmApp::ManualRender
     // so we need to keep it alive between Setup and TearDown
     std::optional<HelloImGui::RunnerParams> sStoredRunnerParams;
 
-    // Changes the current status to Initialized if it was NotInitialized,
-    // otherwise raises an error (assert or exception)
-    void TrySwitchToInitialized()
+    // Asserts that the renderer is currently NotInitialized, without changing state.
+    // Every public Setup* entry point calls this FIRST, before any state mutation,
+    // so that on collision we throw while globals are still pristine (notably
+    // sStoredRunnerParams, which HelloImGui::ManualRender holds a pointer into).
+    void AssertNotInitialized()
     {
         if (sCurrentStatus == RendererStatus::Initialized)
             IM_ASSERT(false && "ImmApp::ManualRender::SetupFromXXX() cannot be called while already initialized. Call TearDown() first.");
-        sCurrentStatus = RendererStatus::Initialized;
     }
 
     // Changes the current status to NotInitialized if it was Initialized,
@@ -531,13 +532,17 @@ namespace ManualRender  // namespace ImmApp::ManualRender
 
     void SetupFromRunnerParams(HelloImGui::RunnerParams& runnerParams, const AddOnsParams& addOnsParams)
     {
-        TrySwitchToInitialized();
+        AssertNotInitialized();
         Priv_Setup(runnerParams, addOnsParams);
         HelloImGui::ManualRender::SetupFromRunnerParams(runnerParams);
+        // Flip state only after success — if any of the above throws, we stay
+        // NotInitialized so a follow-up TearDown() doesn't operate on partial state.
+        sCurrentStatus = RendererStatus::Initialized;
     }
 
     void SetupFromSimpleRunnerParams(const HelloImGui::SimpleRunnerParams& simpleParams, const AddOnsParams& addOnsParams)
     {
+        AssertNotInitialized();
         // Store the runnerParams to keep it alive for the entire lifecycle
         sStoredRunnerParams = simpleParams.ToRunnerParams();
         SetupFromRunnerParams(sStoredRunnerParams.value(), addOnsParams);
@@ -566,6 +571,7 @@ namespace ManualRender  // namespace ImmApp::ManualRender
         const std::optional<ImGuiMd::MarkdownOptions> & withMarkdownOptions
     )
     {
+        AssertNotInitialized();
         HelloImGui::SimpleRunnerParams simpleRunnerParams;
         simpleRunnerParams.guiFunction = guiFunction;
         simpleRunnerParams.windowTitle = windowTitle;
