@@ -273,11 +273,18 @@ cf_stage:
     rsync -a docs/book/_build/html/ {{_CF_STAGING}}/doc/
     #
     # 6. Copy website_resources
+    # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/website_resources
     rsync -a docs/submodule_website_resources/ {{_CF_STAGING}}/resources/
     # Place an up to date assets.zip
     cd bindings/imgui_bundle && zip -r assets.zip assets/ && cd -
     mv  bindings/imgui_bundle/assets.zip {{_CF_STAGING}}/resources/assets.zip
+    #
+    # 7. Copy landing page
+    # ------------------------------------------------------------
+    rm -rf {{_CF_STAGING}}/assets {{_CF_STAGING}}/index.html
+    rsync -a docs/submodule_website_resources/imgui_bundle_pages_landing/final/assets/ {{_CF_STAGING}}/assets/
+    cp docs/submodule_website_resources/imgui_bundle_pages_landing/final/index.html {{_CF_STAGING}}/index.html
 
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
