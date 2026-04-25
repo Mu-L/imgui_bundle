@@ -6,6 +6,16 @@
 
 See [release info for v1.92.7](https://github.com/ocornut/imgui/releases/tag/v1.92.7).
 
+## imgui-bundle.pages.dev: a new website to host the doc & demos
+
+The docs and demos were relocated to a new and faster server, with new URL addresses. The new URL are also much easier to remember.
+
+* Documentation: https://imgui-bundle.pages.dev/
+* ImGui Bundle Explorer: https://imgui-bundle.pages.dev/explorer/
+* Playground: https://imgui-bundle.pages.dev/playground/
+
+(Note: all previous url will now automatically redirect to the new urls)
+
 ## ImPlot v1.0 - Per-index color/size support
 
 - Updated ImPlot to v1.0
