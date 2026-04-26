@@ -105,14 +105,14 @@ class AppState:
         self.g = 9.81
         self.speed = 1.0
 
-        self.init_th1 = np.pi * 0.75
-        self.init_th2 = np.pi * 0.75
+        self.init_angle1 = np.pi * 0.75
+        self.init_angle2 = np.pi * 0.75
 
         self.paused = False
         self.show_trails = True
         self.show_ghost = True
         self.n_ghosts = 5
-        self.ghost_spread = 0.05
+        self.ghost_spread = 0.00001
 
         self.last_time = time.time()
         self.ke_history: List[float] = []
@@ -127,7 +127,7 @@ class AppState:
         self.ke_history.clear()
         self.pe_history.clear()
         # Main pendulum
-        self.pendulums.append(Pendulum(self.init_th1, self.init_th2,
+        self.pendulums.append(Pendulum(self.init_angle1, self.init_angle2,
                                        ImVec4(1.0, 1.0, 1.0, 1.0)))
         # Ghost pendulums with tiny perturbations
         if self.show_ghost:
@@ -135,7 +135,7 @@ class AppState:
                 offset = self.ghost_spread * (i + 1) / self.n_ghosts
                 color = make_rainbow_color(i, self.n_ghosts, 0.7)
                 self.pendulums.append(Pendulum(
-                    self.init_th1 + offset, self.init_th2, color))
+                    self.init_angle1 + offset, self.init_angle2, color))
 
     def update(self):
         now = time.time()
@@ -186,7 +186,7 @@ def draw_pendulum(draw_list, p: Pendulum, pivot: ImVec2, scale: float,
             px2 = pivot.x + p.trail[i + 1][0] * scale
             py2 = pivot.y + p.trail[i + 1][1] * scale
             draw_list.add_line(ImVec2(px1, py1), ImVec2(px2, py2),
-                             tc, 2.0 if is_main else 1.5)
+                             tc, 4.0 if is_main else 1.0)
 
     # Rods
     rod_alpha = 0.9 if is_main else 0.4
@@ -223,96 +223,60 @@ FA_UNDO = icons_fontawesome_4.ICON_FA_UNDO
 def gui(state: AppState):
     state.update()
     em = hello_imgui.em_size()
+    rounding = em * 0.5
+    btn_size = ImVec2(em * 2.5, em * 2.0)
+    imgui.push_style_var(imgui.StyleVar_.frame_rounding, rounding)
 
     # Controls (left column)
     imgui.begin_child("controls", ImVec2(em * 20, 0))
 
-    imgui_md.render(__doc__)
-    imgui.spacing()
-
-    # Initial angles
-    changed_th1, state.init_th1 = imgui_knobs.knob(
-        "Angle 1", state.init_th1, 0, 2 * np.pi,
-        speed=0.02, variant=imgui_knobs.ImGuiKnobVariant_.wiper_dot,
-        format="%.2f")
-    imgui.same_line()
-    changed_th2, state.init_th2 = imgui_knobs.knob(
-        "Angle 2", state.init_th2, 0, 2 * np.pi,
-        speed=0.02, variant=imgui_knobs.ImGuiKnobVariant_.wiper_dot,
-        format="%.2f")
-
-    if changed_th1 or changed_th2:
-        state.reset()
-
-    imgui.same_line()
-
-    # Speed knob
-    _, state.speed = imgui_knobs.knob(
-        "Speed", state.speed, 0.1, 3.0,
-        speed=0.01, variant=imgui_knobs.ImGuiKnobVariant_.stepped,
-        format="%.1fx")
-
-    imgui.spacing()
+    # Show doc (Double Pendulum. A chaotic system where ...)        ===>
+    imgui_md.render(__doc__);  imgui.separator()
 
     # Play/Pause + Reset
-    rounding = em * 0.5
-    imgui.push_style_var(imgui.StyleVar_.frame_rounding, rounding)
-    btn_size = ImVec2(em * 2.5, em * 2.0)
     if imgui.button(FA_PAUSE if not state.paused else FA_PLAY, btn_size):
         state.paused = not state.paused
     imgui.same_line()
-    if imgui.button(FA_UNDO, btn_size):
+    if imgui.button(FA_UNDO, btn_size):  #                          ===>
         state.reset()
-    imgui.pop_style_var()
 
-    imgui.spacing()
-
-    # Display options
-    _, state.show_trails = imgui_toggle.toggle("Trails##tog", state.show_trails)
+    # Initial angles and speed                                      ===>
+    imgui.separator_text("Initial conditions")
+    changed1, state.init_angle1 = imgui_knobs.knob("Angle 1", state.init_angle1, 0, 2 * np.pi, speed=0.02, variant=imgui_knobs.ImGuiKnobVariant_.wiper_dot, format="%.2f")
     imgui.same_line()
-    imgui.text("Trails")
-
-    changed_ghost, state.show_ghost = imgui_toggle.toggle("Ghost##tog", state.show_ghost)
+    changed2, state.init_angle2 = imgui_knobs.knob("Angle 2", state.init_angle2, 0, 2 * np.pi, speed=0.02, variant=imgui_knobs.ImGuiKnobVariant_.wiper_dot, format="%.2f")
+    if changed1 or changed2:
+        state.reset()
     imgui.same_line()
-    imgui.text("Chaos comparison")
+    _, state.speed = imgui_knobs.knob("Speed", state.speed, 0.1, 3.0, speed=0.01, variant=imgui_knobs.ImGuiKnobVariant_.stepped, format="%.1fx")
 
+    # Display options                                               ===>
+    imgui.separator_text("Display options")
+    _, state.show_trails = imgui_toggle.toggle("Trails", state.show_trails)
+    changed, state.show_ghost = imgui_toggle.toggle("Show Ghosts (Chaos comparison)", state.show_ghost)
     if state.show_ghost:
-        changed_n, state.n_ghosts = imgui.slider_int("##nghosts", state.n_ghosts, 1, 12)
-        imgui.same_line()
-        imgui.text("Ghosts")
-        changed_s, state.ghost_spread = imgui.slider_float(
-            "##spread", state.ghost_spread, 0.001, 0.2, "%.3f")
-        imgui.same_line()
-        imgui.text("Spread")
-        if changed_ghost or changed_n or changed_s:
-            state.reset()
-    elif changed_ghost:
+        c1, state.n_ghosts = imgui.slider_int("Nb Ghosts", state.n_ghosts, 1, 12)
+        c2, state.ghost_spread = imgui.slider_float("Spread", state.ghost_spread, 1E-6, 0.1, "%.6f", flags=imgui.SliderFlags_.logarithmic)
+        changed = changed or c1 or c2
+    if changed:
         state.reset()
 
-    imgui.spacing()
-    imgui.separator()
-    imgui.spacing()
-
-    # Energy plot: kinetic vs potential
-    imgui.text("Energy exchange")
-    if len(state.ke_history) > 1:
-        ke = np.array(state.ke_history)
-        pe = np.array(state.pe_history)
+    # Plot                                                          ===>
+    imgui.separator_text("Energy Exchange")
+    if len(state.ke_history) >= 2:
+        ke, pe = np.array(state.ke_history), np.array(state.pe_history)
         xs = np.arange(len(ke), dtype=float)
-        all_e = np.concatenate([ke, pe])
-        e_min, e_max = float(np.min(all_e)), float(np.max(all_e))
-        e_range = max(e_max - e_min, 0.1)
-        if implot.begin_plot("##energy", ImVec2(-1, em * 14)):
+        e_min, e_max = float(min(ke.min(), pe.min())), float(max(ke.max(), pe.max()))
+        if implot.begin_plot("##energy", ImVec2(-1, imgui.get_font_size() * 14)):
             implot.setup_axes("Frame", "Energy")
-            implot.setup_axes_limits(
-                0, float(len(ke)),
-                e_min - e_range * 0.1, e_max * 1.3 + e_range * 0.1,
-                imgui.Cond_.always)
+            implot.setup_axes_limits(0, float(len(ke)), e_min - 1, e_max * 1.3 + 1, imgui.Cond_.always)
             implot.plot_line("Kinetic", xs, ke)
             implot.plot_line("Potential", xs, pe)
             implot.end_plot()
+
     imgui.text(f"FPS: {hello_imgui.frame_rate():.1f}")
 
+    imgui.pop_style_var()
     imgui.end_child()
 
     imgui.same_line()
