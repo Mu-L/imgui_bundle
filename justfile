@@ -274,8 +274,8 @@ cf_stage:
     #
     # 6. Copy website_resources
     # ------------------------------------------------------------
-    rm -rf {{_CF_STAGING}}/website_resources
-    rsync -a docs/submodule_website_resources/ {{_CF_STAGING}}/resources/
+    rm -rf {{_CF_STAGING}}/resources
+    rsync -a docs/submodule_website_resources/imgui-bundle.pages.dev/resources/ {{_CF_STAGING}}/resources/
     # Place an up to date assets.zip
     cd bindings/imgui_bundle && zip -r assets.zip assets/ && cd -
     mv  bindings/imgui_bundle/assets.zip {{_CF_STAGING}}/resources/assets.zip
