@@ -1479,7 +1479,8 @@ _more_info_expanded = False
 def _render_links_row():
     """Render the main links row: GitHub | Documentation | Playground | Discord"""
     links = [
-        ("GitHub", "https://github.com/pthom/imgui_bundle", "Source code, issues, discussions"),
+        ("imgui-bundle.pages.dev", "https://imgui-bundle.pages.dev", "Main project site"),
+        ("Repository", "https://github.com/pthom/imgui_bundle", "Source code, issues, discussions"),
         ("Documentation", "https://imgui-bundle.pages.dev/", "Full documentation for Dear ImGui Bundle"),
         ("Python Playground", "https://imgui-bundle.pages.dev/playground/", "Live Python sandbox with demos - edit and run in your browser"),
         ("Discord", "https://discord.gg/xkzpKMeYN3", "Join the community for questions, showcase, and discussion (new!)"),

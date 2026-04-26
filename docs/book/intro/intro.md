@@ -17,6 +17,7 @@ Dear ImGui Bundle Explorer is an interactive manual with demos of all the featur
 - **[Read this manual](what_is_imgui_bundle.md)**: what it is, how to get started, API guides for each library
 - **[Dear ImGui Bundle Explorer](https://imgui-bundle.pages.dev/explorer/)**: an interactive reference manual - browse demos, see the code, try the widgets
 - **[Python Playground](https://imgui-bundle.pages.dev/playground/)**: live Python sandbox with ready-to-run demos - edit code, see results instantly
-- **[GitHub](https://github.com/pthom/imgui_bundle)**: source code, issues, discussions
+- **[imgui-bundle.pages.dev](https://imgui-bundle.pages.dev/)**: project home
+- **[Repository](https://github.com/pthom/imgui_bundle)**: source code, issues, discussions
 - **[Discord](https://discord.gg/xkzpKMeYN3)**: join the community
 - **[DeepWiki](https://deepwiki.com/pthom/imgui_bundle)**: AI-powered Q&A about the framework

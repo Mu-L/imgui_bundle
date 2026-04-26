@@ -17,8 +17,9 @@ Stop fighting GUI frameworks. Start building.
 Write Python apps that stay readable and understandable, and run with the same code on web, desktop, and mobile.
 
 **See also:**
+* [Project Site](https://imgui-bundle.pages.dev/): Home page of the project
 * [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive manual - all libraries, live demos (even more than here!), browsable source
-* [Documentation](https://imgui-bundle.pages.dev/): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
+* [Documentation](https://imgui-bundle.pages.dev/doc): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
 * [DeepWiki](https://deepwiki.com/pthom/imgui_bundle): AI-powered Q&A about the framework
 * [Discord](https://discord.gg/xkzpKMeYN3): join the community (new!)
 
