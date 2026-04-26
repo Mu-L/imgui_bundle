@@ -295,6 +295,11 @@ cf_deploy:
     wrangler pages deploy {{_CF_STAGING}} --project-name={{_CF_PROJECT}} --commit-dirty=true
     echo "Deployed to https://imgui-bundle.pages.dev/"
 
+# Update Cloudflare Pages from GitHub (same result as cf_deploy, but runs on GH)
+[group('cloudflare')]
+cf_deploy_from_github:
+    gh workflow run cf_pages_deploy.yml
+
 
 # Serves locally the current staging dir (add coi headers for the explorer,
 # and Content-Encoding: gzip for the pre-gzipped .data files — mirrors the CF _headers rules).
