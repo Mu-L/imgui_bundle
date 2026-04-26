@@ -51,6 +51,8 @@ LaTeX math is now supported in the Markdown renderer, using the new `imgui_micro
 
 ### Other Markdown improvements
 
+- Fix word wrapping issues around transitions between bold/italic and normal
+- Make spacing between blocks, headers and paragraphs more coherent
 - Adaptive code snippet colors: new `SnippetTheme::Auto` picks dark or light based on current ImGui theme
 - TextEdit no longer shows a caret in coded blocks.
 
