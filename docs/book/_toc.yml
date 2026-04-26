@@ -6,6 +6,7 @@ parts:
       - file: intro/what_is_imgui_bundle
       - file: intro/key_features
       - file: intro/imm_gui
+      - file: intro/compare
       - file: intro/interactive_manuals
       - file: intro/examples_gallery
       - file: intro/resources
