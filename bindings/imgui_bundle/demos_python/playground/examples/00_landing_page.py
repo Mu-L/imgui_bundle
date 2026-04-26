@@ -1,7 +1,7 @@
 """ Dear ImGui Bundle
-================================
+=====================
 
-<img src="https://imgui-bundle.pages.dev/playground/images/logo_imgui_bundle.png" height="60">
+[![](https://imgui-bundle.pages.dev/resources/logo_imgui_bundle_60.png)](https://imgui-bundle.pages.dev)
 
 *Interactive Python & C++ apps for desktop, mobile, and web - powered by Dear ImGui.*
 
@@ -16,33 +16,35 @@ Stop fighting GUI frameworks. Start building.
 
 Write Python apps that stay readable and understandable, and run with the same code on web, desktop, and mobile.
 
-**See also:**
+### Batteries included
+
+Built on **Dear ImGui**, the immediate-mode GUI library used across game studios and tools teams.
+Dear ImGui Bundle wraps it with **20+ integrated libraries**, including:
+
+* **Plotting**: ImPlot, ImPlot3D
+* **Image debugging**: ImmVision
+* **Rich content**: markdown rendering, color text editors
+* **Graph editing**: node editors, 3D gizmos
+* **Custom widgets**: knobs, toggles, and more
+
+*Python bindings are auto-generated, so they are always in sync with the C++ API.*
+
+### Python web apps, the python way
+
+Thanks to the pyodide version of Dear ImGui Bundle, you can write apps for your browser using
+almost *only python*. **No Client/Server, no JavaScript, no fuss.**
+
+> [!NOTE]
+> The same code runs on desktop, mobile, and web: *this Playground is just the web flavor*.
+
+
+---
+## See also
 * [Project Site](https://imgui-bundle.pages.dev/): Home page of the project
 * [Interactive Explorer](https://imgui-bundle.pages.dev/explorer/): Interactive manual - all libraries, live demos (even more than here!), browsable source
 * [Documentation](https://imgui-bundle.pages.dev/doc): Official doc - [Repository](https://github.com/pthom/imgui_bundle): Source code
 * [DeepWiki](https://deepwiki.com/pthom/imgui_bundle): AI-powered Q&A about the framework
 * [Discord](https://discord.gg/xkzpKMeYN3): join the community (new!)
-
----
-### python web apps, the python way
-
-Forget the usual labyrinth:
-
-<img src="https://imgui-bundle.pages.dev/resources/i_just_want_python.jpg" height="180">
-
-Thanks to the pyodide version of Dear ImGui Bundle, you can write apps for your browser using
-almost *only python*. **No client/server, no javascript, no fuss.**
-
-
-### Batteries included
-
-Dear ImGui Bundle development started in 2022, and the number of libraries it includes
-grew steadily since then. It comes with 20+ integrated libraries: plotting (ImPlot, ImPlot3D),
-image debugging (ImmVision), markdown rendering, node editors, 3D gizmos, knobs, toggles,
-color text editors, and more.
-
-*The python bindings are auto-generated, so they are always up-to-date!*
-
 
 """
 
