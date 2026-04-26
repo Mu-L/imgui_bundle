@@ -237,11 +237,12 @@ cf_stage_prepare: doc_build_cf ibex_build pyodide_setup_local_build pyodide_buil
 [group('cloudflare')]
 cf_stage:
     # 0. Make dir pyodide_projects/_cf_staging (gitignored)
+    rm -rf {{_CF_STAGING}}
     mkdir -p {{_CF_STAGING}}
     #
-    # 1. Copy the CF _headers file
+    # 1. Copy resources + _headers & robots.txt
     # ------------------------------------------------------------
-    cp pyodide_projects/cf_headers {{_CF_STAGING}}/_headers
+    rsync -a docs/submodule_website_resources/imgui-bundle.pages.dev/ {{_CF_STAGING}}/
     #
     # 2. Copy min_pyodide_app
     # ------------------------------------------------------------
@@ -272,11 +273,8 @@ cf_stage:
     rm -rf {{_CF_STAGING}}/doc
     rsync -a docs/book/_build/html/ {{_CF_STAGING}}/doc/
     #
-    # 6. Copy website_resources
+    # 6. Place an up to date assets.zip
     # ------------------------------------------------------------
-    rm -rf {{_CF_STAGING}}/resources
-    rsync -a docs/submodule_website_resources/imgui-bundle.pages.dev/resources/ {{_CF_STAGING}}/resources/
-    # Place an up to date assets.zip
     cd bindings/imgui_bundle && zip -r assets.zip assets/ && cd -
     mv  bindings/imgui_bundle/assets.zip {{_CF_STAGING}}/resources/assets.zip
     #
@@ -285,6 +283,10 @@ cf_stage:
     rm -rf {{_CF_STAGING}}/assets {{_CF_STAGING}}/index.html
     rsync -a docs/submodule_website_resources/imgui_bundle_pages_landing/final/assets/ {{_CF_STAGING}}/assets/
     cp docs/submodule_website_resources/imgui_bundle_pages_landing/final/index.html {{_CF_STAGING}}/index.html
+    #
+    # 8. generate sitemap.xml
+    # ------------------------------------------------------------
+    python docs/submodule_website_resources/tools/generate_sitemap.py
 
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)
@@ -293,10 +295,6 @@ cf_deploy:
     wrangler pages deploy {{_CF_STAGING}} --project-name={{_CF_PROJECT}} --commit-dirty=true
     echo "Deployed to https://imgui-bundle.pages.dev/"
 
-# Wipe staging
-[group('cloudflare')]
-cf_clean:
-    rm -rf {{_CF_STAGING}}
 
 # Serves locally the current staging dir (add coi headers for the explorer,
 # and Content-Encoding: gzip for the pre-gzipped .data files — mirrors the CF _headers rules).
