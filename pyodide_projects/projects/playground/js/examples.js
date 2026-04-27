@@ -201,6 +201,16 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('popstate', async (event) => {
         if (event.state && event.state.demo) {
             await loadDemoByFilename(event.state.demo, false);
+        } else {
+            // Back to the root URL (no ?demo=): restore the landing page
+            const initialCode = await initial_example_code();
+            editor.setValue(initialCode);
+            setLoadedCode(initialCode);
+            setEditorLabel('Welcome to Dear ImGui Bundle');
+            clearError();
+            const selector = document.getElementById('example-selector');
+            if (selector && selector.options.length > 0) selector.selectedIndex = 0;
+            await runEditorPythonCode();
         }
     });
 });
