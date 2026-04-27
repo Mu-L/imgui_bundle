@@ -229,9 +229,39 @@ pyodide_setup_recipe_clone:
 _CF_STAGING := "_cf_staging"
 _CF_PROJECT := "imgui-bundle"
 
+# Clone or update docs/clone_website_resources/ from origin/main.
+# This folder used to be a git submodule; now it is fetched on demand
+# so it does not pollute regular contributors' checkouts.
+[group('cloudflare')]
+cf_resources_sync:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    DEST=docs/clone_website_resources
+    URL=https://github.com/pthom/imgui_bundle_website_resources.git
+    if [ ! -d "$DEST/.git" ]; then
+        git clone --depth 1 "$URL" "$DEST"
+        exit 0
+    fi
+    # Refuse to sync if the user has uncommitted changes
+    if [ -n "$(git -C "$DEST" status --porcelain)" ]; then
+        echo "ERROR: $DEST has uncommitted changes. Commit/push them first." >&2
+        git -C "$DEST" status --short >&2
+        exit 1
+    fi
+    git -C "$DEST" fetch origin main
+    # Refuse to sync if local main has commits not on origin/main
+    AHEAD=$(git -C "$DEST" rev-list --count origin/main..main 2>/dev/null || echo 0)
+    if [ "$AHEAD" != "0" ]; then
+        echo "ERROR: $DEST has $AHEAD local commit(s) not pushed to origin/main." >&2
+        echo "       Push them first; cf_deploy_from_github would otherwise deploy a stale snapshot." >&2
+        exit 1
+    fi
+    git -C "$DEST" checkout main
+    git -C "$DEST" pull --ff-only origin main
+
 # builds all the elements required by cf_stage (doc, explorer, pyodide wheel, etc)
 [group('cloudflare')]
-cf_stage_prepare: doc_build_cf ibex_build pyodide_setup_local_build pyodide_build
+cf_stage_prepare: cf_resources_sync doc_build_cf ibex_build pyodide_setup_local_build pyodide_build
 
 # populates pyodide_projects/_cf_staging which is what will be uploaded to imgui-bundle.pages.dev/
 [group('cloudflare')]
@@ -242,7 +272,7 @@ cf_stage:
     #
     # 1. Copy resources + _headers & robots.txt
     # ------------------------------------------------------------
-    rsync -a docs/submodule_website_resources/imgui-bundle.pages.dev/ {{_CF_STAGING}}/
+    rsync -a docs/clone_website_resources/imgui-bundle.pages.dev/ {{_CF_STAGING}}/
     #
     # 2. Copy min_pyodide_app
     # ------------------------------------------------------------
@@ -281,12 +311,12 @@ cf_stage:
     # 7. Copy landing page
     # ------------------------------------------------------------
     rm -rf {{_CF_STAGING}}/assets {{_CF_STAGING}}/index.html
-    rsync -a docs/submodule_website_resources/imgui_bundle_pages_landing/final/assets/ {{_CF_STAGING}}/assets/
-    cp docs/submodule_website_resources/imgui_bundle_pages_landing/final/index.html {{_CF_STAGING}}/index.html
+    rsync -a docs/clone_website_resources/imgui_bundle_pages_landing/final/assets/ {{_CF_STAGING}}/assets/
+    cp docs/clone_website_resources/imgui_bundle_pages_landing/final/index.html {{_CF_STAGING}}/index.html
     #
     # 8. generate sitemap.xml
     # ------------------------------------------------------------
-    python docs/submodule_website_resources/tools/generate_sitemap.py
+    python docs/clone_website_resources/tools/generate_sitemap.py
 
 
 # Upload the current staging dir to Cloudflare Pages (the whole site snapshot)

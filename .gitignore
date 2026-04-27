@@ -179,3 +179,6 @@ emsdk/
 
 # Cloudflare files staging (before upload)
 _cf_staging
+
+# Cloned on demand by `just cf_resources_sync` (was a submodule)
+docs/clone_website_resources/
