@@ -108,6 +108,9 @@ sdist.exclude = [
     "ci_scripts",
     "docs",
     "imgui_bundle_assets",  # only for C++ apps
+    "_example_integration", # C++ template
+    "pyodide_projects",     # Playground only
+    "logo",
     # Build artifacts
     "build*",
     "external/*/build*",
