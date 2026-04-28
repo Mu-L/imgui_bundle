@@ -15,6 +15,7 @@
 #include "imgui-node-editor/imgui_node_editor.h"
 
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 namespace ed = ax::NodeEditor;
@@ -35,7 +36,8 @@ struct Node
     std::string name;
     std::vector<Pin> inputs;
     std::vector<Pin> outputs;
-    bool      is_group = false;        // true -> use ed::Group() instead of pins
+    bool      is_group  = false;       // true -> use ed::Group() instead of pins
+    bool      collapsed = false;       // groups only: hide member nodes
     ImVec2    group_initial_size{260, 160};
 };
 
@@ -144,8 +146,17 @@ static void draw_node(const Node& n)
         // inside. Drag the group to drag every node enclosed in it. Drag the
         // bottom-right corner to resize. The size argument here is only used
         // on the very first frame; user resizes are persisted by the editor.
+        //
+        // Anything we draw before ed::Group(size) lands in the group's title
+        // strip. We use that to add a [-]/[+] minimize toggle.
+        Node& nm = const_cast<Node&>(n);  // we want to mutate `collapsed`
         ed::BeginNode(ed::NodeId(n.id));
+            if (ImGui::SmallButton(n.collapsed ? "+" : "-"))
+                nm.collapsed = !nm.collapsed;
+            ImGui::SameLine();
             ImGui::TextUnformatted(n.name.c_str());
+            if (n.collapsed)
+                ImGui::Text("(collapsed)");
             ed::Group(n.group_initial_size);
         ed::EndNode();
         return;
@@ -176,6 +187,38 @@ static void draw_node(const Node& n)
         }
         ImGui::EndGroup();
     ed::EndNode();
+}
+
+// Compute the set of node ids that should be hidden this frame because their
+// center sits inside a COLLAPSED group's rectangle. Uses only the public
+// editor API (GetNodePosition / GetNodeSize), which return values measured on
+// the previous frame -- good enough for membership tests.
+static std::unordered_set<int> compute_hidden_node_ids()
+{
+    std::unordered_set<int> hidden;
+    for (const auto& g : g_graph.nodes)
+    {
+        if (!g.is_group || !g.collapsed) continue;
+
+        ImVec2 g_pos  = ed::GetNodePosition(ed::NodeId(g.id));
+        ImVec2 g_size = ed::GetNodeSize(ed::NodeId(g.id));
+        if (g_size.x <= 0 || g_size.y <= 0) continue;  // not laid out yet
+
+        for (const auto& n : g_graph.nodes)
+        {
+            if (n.id == g.id) continue;
+            ImVec2 p = ed::GetNodePosition(ed::NodeId(n.id));
+            ImVec2 s = ed::GetNodeSize(ed::NodeId(n.id));
+            if (s.x <= 0 || s.y <= 0) continue;
+            ImVec2 center{p.x + s.x * 0.5f, p.y + s.y * 0.5f};
+            if (center.x >= g_pos.x && center.x <= g_pos.x + g_size.x
+             && center.y >= g_pos.y && center.y <= g_pos.y + g_size.y)
+            {
+                hidden.insert(n.id);
+            }
+        }
+    }
+    return hidden;
 }
 
 // Draw a big, fading title above each Group node — but only once the user has
@@ -328,11 +371,24 @@ void Gui()
 
     ed::Begin("Graph", ImVec2(0, 0));
 
+    // Compute who is inside a collapsed group (uses last frame's geometry).
+    const auto hidden = compute_hidden_node_ids();
+
     for (const auto& n : g_graph.nodes)
+    {
+        if (hidden.count(n.id)) continue;   // skip members of collapsed groups
         draw_node(n);
+    }
 
     for (const auto& l : g_graph.links)
+    {
+        // Hide a link as soon as either endpoint sits in a hidden node.
+        const Pin* a = g_graph.find_pin(l.src_pin_id);
+        const Pin* b = g_graph.find_pin(l.dst_pin_id);
+        if (a && hidden.count(a->node_id)) continue;
+        if (b && hidden.count(b->node_id)) continue;
         ed::Link(ed::LinkId(l.id), ed::PinId(l.src_pin_id), ed::PinId(l.dst_pin_id));
+    }
 
     draw_group_hints();
     handle_create();
