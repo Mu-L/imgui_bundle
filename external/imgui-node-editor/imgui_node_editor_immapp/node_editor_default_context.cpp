@@ -128,8 +128,18 @@ void UpdateNodeEditorColorsFromImguiColors()
     styleNode.Colors[StyleColor_HovNodeBorder] = ColorValueMultiply(styleIm.Colors[ImGuiCol_ScrollbarGrabHovered], HovNodeBorder);
     styleNode.Colors[StyleColor_SelNodeBorder] = ColorValueMultiply(styleIm.Colors[ImGuiCol_ScrollbarGrabActive], SelNodeBorder);
 
-    styleNode.Colors[StyleColor_NodeSelRect] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 0.5);
-    styleNode.Colors[StyleColor_NodeSelRectBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 1.0);
+    if (isDark)
+    {
+        styleNode.Colors[StyleColor_NodeSelRect] = ImVec4(1, 1, 1, 0.2);
+        styleNode.Colors[StyleColor_NodeSelRectBorder] = ImVec4(1, 1, 1, 0.5);
+        styleNode.Colors[StyleColor_SelNodeBorder] = ImVec4(1, 1, 0, 1);
+    }
+    else
+    {
+        styleNode.Colors[StyleColor_NodeSelRect] = ImVec4(0, 0, 0, 0.15);
+        styleNode.Colors[StyleColor_NodeSelRectBorder] = ImVec4(0, 0, 0, 0.5);
+        styleNode.Colors[StyleColor_SelNodeBorder] = ImVec4(0, 0, 1, 1);
+    }
 
     // Note I do not see a way to set the color of an inactive Link
     styleNode.Colors[StyleColor_HovLinkBorder] = styleIm.Colors[ImGuiCol_ScrollbarGrabHovered];
