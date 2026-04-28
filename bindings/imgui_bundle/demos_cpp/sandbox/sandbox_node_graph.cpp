@@ -331,6 +331,13 @@ static void handle_context_menus()
     {
         ImGui::Text("Link #%d", last_link);
         ImGui::Separator();
+        // ed::Flow() triggers a one-shot animated "flow" along the link
+        // (one call kicks off a time-bounded animation, no per-frame loop).
+        if (ImGui::MenuItem("Flow forward"))
+            ed::Flow(ed::LinkId(last_link), ed::FlowDirection::Forward);
+        if (ImGui::MenuItem("Flow backward"))
+            ed::Flow(ed::LinkId(last_link), ed::FlowDirection::Backward);
+        ImGui::Separator();
         if (ImGui::MenuItem("Delete link"))
             g_graph.erase_link(last_link);
         ImGui::EndPopup();
