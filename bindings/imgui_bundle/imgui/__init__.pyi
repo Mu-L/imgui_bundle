@@ -352,7 +352,6 @@ class Vec4Protocol(Protocol):
     def __truediv__(self, other: Union[ImVec4Like, float]) -> ImVec4: ...
     def __neg__(self) -> ImVec4: ...
 
-
 ##################################################
 #    AUTO GENERATED CODE BELOW
 ##################################################

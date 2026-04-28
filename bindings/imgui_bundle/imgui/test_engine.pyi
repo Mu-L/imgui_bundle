@@ -1588,11 +1588,7 @@ class TestContext:
     # void        CaptureSetFilename(const char* filename);    /* original C++ signature */
     def capture_set_filename(self, filename: str) -> None:
         """[ADAPT_IMGUI_BUNDLE]
-         Route the next CaptureScreenshot*/CaptureBeginVideo to this path on disk.
-         Without this, the engine auto-names the file (output/<TestName>_NNNN.png)
-         and there is no way to pick the output path from Python, since
-         CaptureArgs->InOutputFile is a fixed-size char buffer not exposed by
-         litgen.
+         Where to save the next CaptureScreenshot*/CaptureBeginVideo (length: 256 max!)
         (private API)
         """
         pass

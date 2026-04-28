@@ -1064,7 +1064,7 @@ void py_init_module_imgui_test_engine(nb::module_& m)
         .def("capture_set_filename",
             &ImGuiTestContext::CaptureSetFilename,
             nb::arg("filename"),
-            " [ADAPT_IMGUI_BUNDLE]\n Route the next CaptureScreenshot*/CaptureBeginVideo to this path on disk.\n Without this, the engine auto-names the file (output/<TestName>_NNNN.png)\n and there is no way to pick the output path from Python, since\n CaptureArgs->InOutputFile is a fixed-size char buffer not exposed by\n litgen.\n(private API)")
+            " [ADAPT_IMGUI_BUNDLE]\n Where to save the next CaptureScreenshot*/CaptureBeginVideo (length: 256 max!)\n(private API)")
         // #endif
         //
         .def("capture_add_window",
