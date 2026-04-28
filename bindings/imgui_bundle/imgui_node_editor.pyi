@@ -586,7 +586,7 @@ def get_node_background_draw_list(node_id: NodeId) -> ImDrawList:
     """TODO: Add a way to manage node background channels"""
     pass
 
-# IMGUI_NODE_EDITOR_API bool Link(LinkId id, PinId startPinId, PinId endPinId, const ImVec4& color = ImVec4(1, 1, 1, 1), float thickness = 1.0f);    /* original C++ signature */
+# IMGUI_NODE_EDITOR_API bool Link(LinkId id, PinId startPinId, PinId endPinId, const ImVec4& color = ImVec4(0, 0, 0, 0), float thickness = 1.0f);    /* original C++ signature */
 def link(
     id: LinkId,
     start_pin_id: PinId,
@@ -594,8 +594,14 @@ def link(
     color: Optional[ImVec4Like] = None,
     thickness: float = 1.0,
 ) -> bool:
-    """Python bindings defaults:
-    If color is None, then its default value will be: ImVec4(1, 1, 1, 1)
+    """`color` default is the sentinel ImVec4(0,0,0,0) ("auto"): when alpha is 0
+     the implementation substitutes the current ImGuiCol_Text, so links stay
+     readable on both light and dark themes. Pass any non-zero-alpha color to
+     override.
+
+
+    Python bindings defaults:
+        If color is None, then its default value will be: ImVec4(0, 0, 0, 0)
     """
     pass
 
@@ -603,10 +609,10 @@ def link(
 def flow(link_id: LinkId, direction: FlowDirection = FlowDirection.forward) -> None:
     pass
 
-# IMGUI_NODE_EDITOR_API bool BeginCreate(const ImVec4& color = ImVec4(1, 1, 1, 1), float thickness = 1.0f);    /* original C++ signature */
+# IMGUI_NODE_EDITOR_API bool BeginCreate(const ImVec4& color = ImVec4(0, 0, 0, 0), float thickness = 1.0f);    /* original C++ signature */
 def begin_create(color: Optional[ImVec4Like] = None, thickness: float = 1.0) -> bool:
     """Python bindings defaults:
-    If color is None, then its default value will be: ImVec4(1, 1, 1, 1)
+    If color is None, then its default value will be: ImVec4(0, 0, 0, 0)
     """
     pass
 

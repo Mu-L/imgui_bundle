@@ -139,13 +139,19 @@ void UpdateNodeEditorColorsFromImguiColors()
         styleNode.Colors[StyleColor_LinkSelRectBorder] = ImVec4(1, 1, 0.5, 0.5);
         // Selected links
         styleNode.Colors[StyleColor_SelLinkBorder] = ImVec4(1, 1, 0.3, 1);
+        // Highlight links / sel
+        styleNode.Colors[StyleColor_HovLinkBorder] = ImVec4(0, 0., 1, 0.5);
+        styleNode.Colors[StyleColor_HighlightLinkBorder] = ImVec4(0, 0., 1, 0.5);
+
+        styleNode.Colors[StyleColor_Flow] = ImVec4(1, 1, 0.6, 0.6);
+        styleNode.Colors[StyleColor_FlowMarker] = ImVec4(1, 1, 0.6, 0.6);
     }
     else
     {
         // Rectangle while lassoing around nodes
         styleNode.Colors[StyleColor_NodeSelRect] = ImVec4(0, 0, 0, 0.15);
         styleNode.Colors[StyleColor_NodeSelRectBorder] = ImVec4(0, 0, 0, 0.5);
-        // Selected nodes in green
+        // Selected nodes in blue
         styleNode.Colors[StyleColor_SelNodeBorder] = ImVec4(0, 0, 1, 1);
 
         // Rectangle while lassoing around links (using Shift)
@@ -153,21 +159,17 @@ void UpdateNodeEditorColorsFromImguiColors()
         styleNode.Colors[StyleColor_LinkSelRectBorder] = ImVec4(0, 0, 0.3, 0.5);
         // Selected links
         styleNode.Colors[StyleColor_SelLinkBorder] = ImVec4(0, 0.3, 1, 1);
+        // Highlight links / sel
+        styleNode.Colors[StyleColor_HovLinkBorder] = ImVec4(1, 0., 1, 0.5);
+        styleNode.Colors[StyleColor_HighlightLinkBorder] = ImVec4(0, 0., 1, 0.5);
+
+        styleNode.Colors[StyleColor_Flow] = ImVec4(0.6, 0.6, 1.0, 0.6);
+        styleNode.Colors[StyleColor_FlowMarker] = ImVec4(0.6, 0.6, 1.0, 0.6);
     }
-
-    // Note I do not see a way to set the color of an inactive Link
-    //styleNode.Colors[StyleColor_HovLinkBorder] = styleIm.Colors[ImGuiCol_ScrollbarGrabHovered];
-    // StyleColor_HighlightLinkBorder?
-    //styleNode.Colors[StyleColor_HighlightLinkBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 1.0);
-
-    // I don't know what this corresponds to.
 
     styleNode.Colors[StyleColor_PinRect] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_Button], 0.7);
     styleNode.Colors[StyleColor_PinRectBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_Button], 0.9);
 
-    // Flow is used in rare occasions.
-    styleNode.Colors[StyleColor_Flow] = styleIm.Colors[ImGuiCol_DockingPreview];
-    styleNode.Colors[StyleColor_FlowMarker] = styleIm.Colors[ImGuiCol_DockingPreview];
 
     styleNode.Colors[StyleColor_GroupBg] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_FrameBg], 0.6);
     styleNode.Colors[StyleColor_GroupBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_FrameBg], 0.8);

@@ -408,7 +408,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
                     if (color.has_value())
                         return color.value();
                     else
-                        return ImVec4(1, 1, 1, 1);
+                        return ImVec4(0, 0, 0, 0);
                 }();
 
                 auto lambda_result = ax::NodeEditor::Link(id, startPinId, endPinId, color_or_default, thickness);
@@ -418,7 +418,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
             return Link_adapt_mutable_param_with_default_value(id, startPinId, endPinId, color, thickness);
         },
         nb::arg("id"), nb::arg("start_pin_id"), nb::arg("end_pin_id"), nb::arg("color").none() = nb::none(), nb::arg("thickness") = 1.0f,
-        "Python bindings defaults:\n    If color is None, then its default value will be: ImVec4(1, 1, 1, 1)");
+        " `color` default is the sentinel ImVec4(0,0,0,0) (\"auto\"): when alpha is 0\n the implementation substitutes the current ImGuiCol_Text, so links stay\n readable on both light and dark themes. Pass any non-zero-alpha color to\n override.\n\n\nPython bindings defaults:\n    If color is None, then its default value will be: ImVec4(0, 0, 0, 0)");
 
     m.def("flow",
         ax::NodeEditor::Flow, nb::arg("link_id"), nb::arg("direction") = ax::NodeEditor::FlowDirection::Forward);
@@ -433,7 +433,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
                     if (color.has_value())
                         return color.value();
                     else
-                        return ImVec4(1, 1, 1, 1);
+                        return ImVec4(0, 0, 0, 0);
                 }();
 
                 auto lambda_result = ax::NodeEditor::BeginCreate(color_or_default, thickness);
@@ -443,7 +443,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
             return BeginCreate_adapt_mutable_param_with_default_value(color, thickness);
         },
         nb::arg("color").none() = nb::none(), nb::arg("thickness") = 1.0f,
-        "Python bindings defaults:\n    If color is None, then its default value will be: ImVec4(1, 1, 1, 1)");
+        "Python bindings defaults:\n    If color is None, then its default value will be: ImVec4(0, 0, 0, 0)");
 
     m.def("query_new_link",
         nb::overload_cast<ax::NodeEditor::PinId *, ax::NodeEditor::PinId *>(ax::NodeEditor::QueryNewLink), nb::arg("start_id"), nb::arg("end_id"));
