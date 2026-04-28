@@ -395,7 +395,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
     m.def("get_node_background_draw_list",
         ax::NodeEditor::GetNodeBackgroundDrawList,
         nb::arg("node_id"),
-        "TODO: Add a way to manage node background channels",
+        " Returns the draw list used for the node's BACKGROUND layer (drawn under\n the node's content). Useful to add badges, highlights, etc. behind a node.\n TODO: Add a way to manage node background channels",
         nb::rv_policy::reference);
 
     m.def("link",
@@ -418,10 +418,12 @@ void py_init_module_imgui_node_editor(nb::module_& m)
             return Link_adapt_mutable_param_with_default_value(id, startPinId, endPinId, color, thickness);
         },
         nb::arg("id"), nb::arg("start_pin_id"), nb::arg("end_pin_id"), nb::arg("color").none() = nb::none(), nb::arg("thickness") = 1.0f,
-        " `color` default is the sentinel ImVec4(0,0,0,0) (\"auto\"): when alpha is 0\n the implementation substitutes the current ImGuiCol_Text, so links stay\n readable on both light and dark themes. Pass any non-zero-alpha color to\n override.\n\n\nPython bindings defaults:\n    If color is None, then its default value will be: ImVec4(0, 0, 0, 0)");
+        " Declares an existing link between two pins. Call once per frame for every\n link you want shown. Returns True if the link is currently visible/active.\n `color` default is the sentinel ImVec4(0,0,0,0) (\"auto\"): when alpha is 0\n the implementation substitutes the current ImGuiCol_Text, so links stay\n readable on both light and dark themes. Pass any non-zero-alpha color to\n override.\n\n\nPython bindings defaults:\n    If color is None, then its default value will be: ImVec4(0, 0, 0, 0)");
 
     m.def("flow",
-        ax::NodeEditor::Flow, nb::arg("link_id"), nb::arg("direction") = ax::NodeEditor::FlowDirection::Forward);
+        ax::NodeEditor::Flow,
+        nb::arg("link_id"), nb::arg("direction") = ax::NodeEditor::FlowDirection::Forward,
+        " Trigger a one-shot animated \"flow\" pulse along a link. Calling this once\n is enough; the editor handles the time-bounded animation internally.");
 
     m.def("begin_create",
         [](const std::optional<const ImVec4> & color = std::nullopt, float thickness = 1.0f) -> bool
@@ -516,7 +518,9 @@ void py_init_module_imgui_node_editor(nb::module_& m)
         "Returns node z position, defaults is 0.0");
 
     m.def("restore_node_state",
-        ax::NodeEditor::RestoreNodeState, nb::arg("node_id"));
+        ax::NodeEditor::RestoreNodeState,
+        nb::arg("node_id"),
+        " Re-load the node's position/size from the editor's persisted settings\n (the SettingsFile, if any). Useful right after creating a node whose\n previous layout you want to bring back without the user having to drag it.");
 
     m.def("suspend",
         ax::NodeEditor::Suspend);
@@ -528,7 +532,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
         ax::NodeEditor::IsSuspended);
 
     m.def("is_active",
-        ax::NodeEditor::IsActive);
+        ax::NodeEditor::IsActive, " True while the editor is processing user input this frame (drag, select,\n pan, zoom, link-create, etc.).");
 
     m.def("has_selection_changed",
         ax::NodeEditor::HasSelectionChanged);
@@ -688,7 +692,7 @@ void py_init_module_imgui_node_editor(nb::module_& m)
         ax::NodeEditor::EndShortcut);
 
     m.def("get_current_zoom",
-        ax::NodeEditor::GetCurrentZoom);
+        ax::NodeEditor::GetCurrentZoom, "Current canvas zoom factor; 1.0 = 100%.");
 
     m.def("get_hovered_node",
         ax::NodeEditor::GetHoveredNode);
@@ -726,7 +730,9 @@ void py_init_module_imgui_node_editor(nb::module_& m)
         "pass None if particular pin do not interest you");
 
     m.def("pin_had_any_links",
-        ax::NodeEditor::PinHadAnyLinks, nb::arg("pin_id"));
+        ax::NodeEditor::PinHadAnyLinks,
+        nb::arg("pin_id"),
+        " True if the pin was ever connected to a link in its lifetime, even if it\n is currently disconnected.");
 
     m.def("get_screen_size",
         ax::NodeEditor::GetScreenSize);
