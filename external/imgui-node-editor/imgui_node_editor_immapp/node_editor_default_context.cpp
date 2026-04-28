@@ -99,8 +99,6 @@ void UpdateNodeEditorColorsFromImguiColors()
 
     constexpr float kHov = 1.25;
     constexpr float kSel = 1.6;
-    float HovNodeBorder = isDark ? kHov : 1.0 / kHov;
-    float SelNodeBorder = isDark ? kSel : 1.0 / kSel;
 
     ImVec4 nodeBgColor;
     {
@@ -125,31 +123,44 @@ void UpdateNodeEditorColorsFromImguiColors()
     styleNode.Colors[StyleColor_NodeBorder] = styleIm.Colors[ImGuiCol_Border];
     styleNode.Colors[StyleColor_NodeBorder].w = 0.5;
 
+    float HovNodeBorder = isDark ? kHov : 1.0 / kHov;
     styleNode.Colors[StyleColor_HovNodeBorder] = ColorValueMultiply(styleIm.Colors[ImGuiCol_ScrollbarGrabHovered], HovNodeBorder);
-    styleNode.Colors[StyleColor_SelNodeBorder] = ColorValueMultiply(styleIm.Colors[ImGuiCol_ScrollbarGrabActive], SelNodeBorder);
 
     if (isDark)
     {
+        // Rectangle while lassoing around nodes
         styleNode.Colors[StyleColor_NodeSelRect] = ImVec4(1, 1, 1, 0.2);
         styleNode.Colors[StyleColor_NodeSelRectBorder] = ImVec4(1, 1, 1, 0.5);
+        // Selected nodes in yellow
         styleNode.Colors[StyleColor_SelNodeBorder] = ImVec4(1, 1, 0, 1);
+
+        // Rectangle while lassoing around links (using Shift)
+        styleNode.Colors[StyleColor_LinkSelRect] = ImVec4(1, 1, 0.5, 0.2);
+        styleNode.Colors[StyleColor_LinkSelRectBorder] = ImVec4(1, 1, 0.5, 0.5);
+        // Selected links
+        styleNode.Colors[StyleColor_SelLinkBorder] = ImVec4(1, 1, 0.3, 1);
     }
     else
     {
+        // Rectangle while lassoing around nodes
         styleNode.Colors[StyleColor_NodeSelRect] = ImVec4(0, 0, 0, 0.15);
         styleNode.Colors[StyleColor_NodeSelRectBorder] = ImVec4(0, 0, 0, 0.5);
+        // Selected nodes in green
         styleNode.Colors[StyleColor_SelNodeBorder] = ImVec4(0, 0, 1, 1);
+
+        // Rectangle while lassoing around links (using Shift)
+        styleNode.Colors[StyleColor_LinkSelRect] = ImVec4(0, 0, 0.3, 0.15);
+        styleNode.Colors[StyleColor_LinkSelRectBorder] = ImVec4(0, 0, 0.3, 0.5);
+        // Selected links
+        styleNode.Colors[StyleColor_SelLinkBorder] = ImVec4(0, 0.3, 1, 1);
     }
 
     // Note I do not see a way to set the color of an inactive Link
-    styleNode.Colors[StyleColor_HovLinkBorder] = styleIm.Colors[ImGuiCol_ScrollbarGrabHovered];
-    styleNode.Colors[StyleColor_SelLinkBorder] = styleIm.Colors[ImGuiCol_ScrollbarGrabActive];
+    //styleNode.Colors[StyleColor_HovLinkBorder] = styleIm.Colors[ImGuiCol_ScrollbarGrabHovered];
     // StyleColor_HighlightLinkBorder?
-    styleNode.Colors[StyleColor_HighlightLinkBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 1.0);
+    //styleNode.Colors[StyleColor_HighlightLinkBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 1.0);
 
     // I don't know what this corresponds to.
-    styleNode.Colors[StyleColor_LinkSelRect] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 0.5);
-    styleNode.Colors[StyleColor_LinkSelRectBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_DockingPreview], 1.0);
 
     styleNode.Colors[StyleColor_PinRect] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_Button], 0.7);
     styleNode.Colors[StyleColor_PinRectBorder] = ColorWithAlphaMultiplier(styleIm.Colors[ImGuiCol_Button], 0.9);
