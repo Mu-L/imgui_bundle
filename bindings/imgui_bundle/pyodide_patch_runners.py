@@ -220,6 +220,15 @@ class _ManualRenderJs:
         if _wants_latex(args, kwargs):
             import asyncio
 
+            # Tear down any previous renderer synchronously, so its animation
+            # frames stop firing while we await the LaTeX font download.
+            # Otherwise the old lambda keeps ticking against freshly-rebound
+            # globals from the new exec (playground reuses one namespace),
+            # producing spurious AttributeErrors.
+            # Note: when not using latex, self._run() will also call self._stop() if needed
+            if self.is_running:
+                self._stop()
+
             async def _delayed_start() -> None:
                 try:
                     from imgui_bundle._pyodide_latex_fonts import ensure_fonts_async
@@ -256,6 +265,9 @@ class _ManualRenderJs:
         per session) before starting the renderer.
         """
         if _wants_latex(args, kwargs):
+            # Stop the previous renderer up front (see run_immapp).
+            if self.is_running:
+                self._stop()
             try:
                 from imgui_bundle._pyodide_latex_fonts import ensure_fonts_async
                 await ensure_fonts_async()
