@@ -1423,7 +1423,8 @@ def show_demo_window_widgets():
         if imgui.begin_combo("combo 1", combo_preview_value, static.flags):
             for n in range(len(items)):
                 is_selected = (static.item_current_idx == n)
-                if imgui.selectable(items[n], is_selected):
+                _, is_selected = imgui.selectable(items[n], is_selected)
+                if is_selected:
                     static.item_current_idx = n
                 if is_selected:
                     imgui.set_item_default_focus()
