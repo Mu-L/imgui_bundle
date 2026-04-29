@@ -559,6 +559,10 @@ def gui():
     imgui.end_child()
 
 
-if __name__ == "__main__":
+def main():
     immapp.run(gui, window_size=(1200, 800), window_title="Dear ImGui Bundle Playground",
                with_implot=True, with_implot3d=True, with_markdown=True, fps_idle=0, ini_disable=True)
+
+
+if __name__ == "__main__":
+    main()
